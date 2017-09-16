@@ -9,7 +9,7 @@
 import ARKit
 import SceneKit
 
-class BoxModeler {
+class BoxModeler : Modeler {
     
     enum InteractionMode {
         case waitingForLocation
@@ -17,19 +17,17 @@ class BoxModeler {
         case waitingForFaceDrag, draggingFace(side: Box.Side, dragStart: SCNVector3)
     }
     
-
-    
-    var sceneView: ARSCNView!
+//    var sceneView: ARSCNView!
     
     var panGesture: UIPanGestureRecognizer!
     var doubleTapGesture: UITapGestureRecognizer!
     var rotationGesture: UIRotationGestureRecognizer!
     
-    var box: Box!
+//    var box: Box!
     var hitTestPlane: SCNNode!
     var floor: SCNNode!
     
-    var currentAnchor: ARAnchor?
+//    var currentAnchor: ARAnchor?
     
     var mode: InteractionMode = .waitingForLocation {
         didSet {
@@ -105,7 +103,7 @@ class BoxModeler {
     
 
     
-    func setup() {
+    override func setup() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         
         doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))

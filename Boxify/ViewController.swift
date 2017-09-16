@@ -29,7 +29,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         }
     }
     
-    let bModeler : BoxModeler = BoxModeler()
+    let modeler : Modeler = BoxModeler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.antialiasingMode = .multisampling4X
         sceneView.autoenablesDefaultLighting = true
 
-        bModeler.sceneView = self.sceneView
-        bModeler.setup()
+        modeler.sceneView = self.sceneView
+        modeler.setup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,11 +97,11 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         plane.length = CGFloat(planeAnchor.extent.z)
         
         // If this anchor is the one the box is positioned relative to, then update the box to match any corrections to the plane's observed position.
-        if plane == bModeler.currentAnchor {
+        if plane == modeler.currentAnchor {
             let oldPos = node.position
             let newPos = SCNVector3.positionFromTransform(planeAnchor.transform)
             let delta = newPos - oldPos
-            bModeler.box.position += delta
+            modeler.box.position += delta
         }
         
         node.transform = SCNMatrix4(planeAnchor.transform)
