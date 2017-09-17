@@ -16,18 +16,19 @@ class BoxModeler : Modeler {
         case draggingInitialWidth, draggingInitialLength
         case waitingForFaceDrag, draggingFace(side: Box.Side, dragStart: SCNVector3)
     }
-    
-//    var sceneView: ARSCNView!
-    
+
     var panGesture: UIPanGestureRecognizer!
     var doubleTapGesture: UITapGestureRecognizer!
     var rotationGesture: UIRotationGestureRecognizer!
-    
-//    var box: Box!
+
     var hitTestPlane: SCNNode!
     var floor: SCNNode!
     
-//    var currentAnchor: ARAnchor?
+    var box : Box!
+    
+    override func model() -> SCNNode {
+        return box
+    }
     
     var mode: InteractionMode = .waitingForLocation {
         didSet {

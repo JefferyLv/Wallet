@@ -13,7 +13,12 @@ class Modeler {
     var sceneView: ARSCNView!
     var currentAnchor: ARAnchor?
     
-    var box: Box!
     func setup () {
     }
+    
+    var mod: Model!
+    func model() -> SCNNode {
+        return mod
+    }
+    
 }

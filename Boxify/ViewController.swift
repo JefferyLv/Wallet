@@ -29,7 +29,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         }
     }
     
-    let modeler : Modeler = BoxModeler()
+//    let modeler : Modeler = BoxModeler()
+    let modeler : Modeler = PolyModeler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +102,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             let oldPos = node.position
             let newPos = SCNVector3.positionFromTransform(planeAnchor.transform)
             let delta = newPos - oldPos
-            modeler.box.position += delta
+            modeler.model().position += delta
         }
         
         node.transform = SCNMatrix4(planeAnchor.transform)

@@ -10,6 +10,7 @@
 		73110D1A1F6D273700F29531 /* PolyModeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D191F6D273700F29531 /* PolyModeler.swift */; };
 		73110D1C1F6D28C000F29531 /* Modeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D1B1F6D28C000F29531 /* Modeler.swift */; };
 		73110D1E1F6D2A5600F29531 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D1D1F6D2A5600F29531 /* Polygon.swift */; };
+		73110D201F6E06A900F29531 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D1F1F6E06A900F29531 /* Model.swift */; };
 		73DA31931F6BFBE20053ACF9 /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31921F6BFBE20053ACF9 /* ARSCNView+Extensions.swift */; };
 		73DA31951F6CC4E40053ACF9 /* Adoner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31941F6CC4E40053ACF9 /* Adoner.swift */; };
 		73DA31971F6D077B0053ACF9 /* BoxModeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31961F6D077B0053ACF9 /* BoxModeler.swift */; };
@@ -30,6 +31,7 @@
 		73110D191F6D273700F29531 /* PolyModeler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyModeler.swift; sourceTree = "<group>"; };
 		73110D1B1F6D28C000F29531 /* Modeler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modeler.swift; sourceTree = "<group>"; };
 		73110D1D1F6D2A5600F29531 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
+		73110D1F1F6E06A900F29531 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		73DA31921F6BFBE20053ACF9 /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		73DA31941F6CC4E40053ACF9 /* Adoner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adoner.swift; sourceTree = "<group>"; };
 		73DA31961F6D077B0053ACF9 /* BoxModeler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxModeler.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				9FFE391B1EF1DE2500D26EB8 /* ViewController.swift */,
+				73110D1F1F6E06A900F29531 /* Model.swift */,
 				9F4060C41EF423DE00A14464 /* Box.swift */,
 				73110D1D1F6D2A5600F29531 /* Polygon.swift */,
 				73110D1B1F6D28C000F29531 /* Modeler.swift */,
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73110D201F6E06A900F29531 /* Model.swift in Sources */,
 				9F4060C91EF5A48D00A14464 /* SCNNode+Extensions.swift in Sources */,
 				9F622E781EF3097900829A0B /* Utilities.swift in Sources */,
 				73DA31951F6CC4E40053ACF9 /* Adoner.swift in Sources */,
