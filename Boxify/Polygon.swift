@@ -26,7 +26,7 @@ class Polygon: SCNNode {
     
     let lengthFormatter: NumberFormatter
     
-    var vertex: [SCNNode] = []
+    var vertices: [SCNNode] = []
     var lines:  [SCNNode] = []
     var faces:  [SCNNode] = []
     
@@ -41,5 +41,22 @@ class Polygon: SCNNode {
         self.lengthFormatter.multiplier = 100
         
         super.init()
+    }
+    
+    func addVertex(at pos: SCNVector3) {
+        let vertex = Adorner.makeVertex()
+        vertex.position = pos
+        
+        addChildNode(vertex)
+        vertices.append(vertex)
+    }
+    
+    func updateLines() {
+        if vertices.count < 2 {
+            return
+        }
+        
+//        let line = Adorner.makeLine()
+        
     }
 }

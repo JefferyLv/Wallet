@@ -16,10 +16,6 @@ class PolyModeler : Modeler {
         case draggingNewPoint, draggingClosePoint, draggingHeightPoint
     }
     
-    var panGesture: UIPanGestureRecognizer!
-    var doubleTapGesture: UITapGestureRecognizer!
-    var rotationGesture: UIRotationGestureRecognizer!
-    
     var hitTestPlane: SCNNode!
     var floor: SCNNode!
     
@@ -33,7 +29,7 @@ class PolyModeler : Modeler {
         didSet {
             switch mode {
             case .waitingForLocation:
-                rotationGesture.isEnabled = false
+//                rotationGesture.isEnabled = false
                 
                 poly.isHidden = true
 //                poly.clearHighlights()
@@ -44,7 +40,7 @@ class PolyModeler : Modeler {
                 //                planesShown = true
                 
             case .draggingNewPoint, .draggingClosePoint:
-                rotationGesture.isEnabled = true
+//                rotationGesture.isEnabled = true
                 
                 poly.isHidden = false
 //                poly.clearHighlights()
@@ -106,17 +102,7 @@ class PolyModeler : Modeler {
 //    var currentAnchor: ARAnchor?
     
     override func setup() {
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        
-        doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-        doubleTapGesture.numberOfTapsRequired = 2
-        
-        rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation))
-        
-        sceneView.addGestureRecognizer(panGesture)
-        sceneView.addGestureRecognizer(doubleTapGesture)
-//        sceneView.addGestureRecognizer(rotationGesture)
-        
+      
         poly = Polygon()
         poly.isHidden = true
         sceneView.scene.rootNode.addChildNode(poly)
@@ -145,53 +131,50 @@ class PolyModeler : Modeler {
         poly.addChildNode(floor)
         poly.categoryBitMask |= RenderingCategory.reflected.rawValue
     }
+ 
+    var closed = false
     
-    // MARK: - Touch handling
-    
-    @objc dynamic func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
-        switch mode {
-        case .waitingForLocation:
-            findStartingLocation(gestureRecognizer)
-//        case .draggingNewPoint:
-//            handleInitialWidthDrag(gestureRecognizer)
-//        case .draggingClosePoint:
-//            handleInitialLengthDrag(gestureRecognizer)
-//        case .draggingHeightPoint:
-//            findFaceDragLocation(gestureRecognizer)
+    override func handleNewPoint(pos: CGPoint) {
+        let hit = sceneView.realWorldHit(at: pos)
+        
+        if let startPos = hit.position, let _ = hit.planeAnchor {
+            poly.addVertex(at: startPos)
+            print(startPos)
+        }
+        
+//        var nearpos = pos.position;
+//        if line != nil {
+//            for l in lines {
 //
-        case .draggingNewPoint: break
-            
-        case .draggingClosePoint: break
-            
-        case .draggingHeightPoint: break
-            
-        }
-    }
-    
-    
-    @objc dynamic func handleDoubleTap(_ gestureRecognizer: UIPanGestureRecognizer) {
-    }
-    
-    @objc dynamic func handleRotation(_ gestureRecognizer: UIRotationGestureRecognizer) {
-    }
-    
-    // MARK: Drag Gesture handling
-    
-    func findStartingLocation(_ gestureRecognizer: UIPanGestureRecognizer) {
-        switch gestureRecognizer.state {
-        case .began, .changed:
-            // Use real-world ARKit coordinates to determine where to start drawing
-            let touchPos = gestureRecognizer.location(in: sceneView)
-            
-            let hit = sceneView.realWorldHit(at: touchPos)
-            if let startPos = hit.position, let plane = hit.planeAnchor {
-                // Once the user hits a usable real-world plane, switch into line-dragging mode
-                poly.position = startPos
-                currentAnchor = plane
-                mode = .draggingNewPoint
-            }
-        default:
-            break
-        }
+//                let p2 = CGPoint(sceneView.projectPoint(l.startNode.worldPosition))
+//                let dis = indicator.center - p2
+//
+//                if (dis.length() < 25) {
+//                    nearpos = l.startNode.position
+//                    closed = true
+//                    break
+//                }
+//
+//            }
+//
+//            _ = line?.updatePosition(pos: nearpos!, camera: self.sceneView.session.currentFrame?.camera)
+//
+//            line = nil
+//
+//        }
+//
+//        line = LineNode(startPos: nearpos!, sceneV: sceneView)
+//        lines.append(line!)
+//
+//
+//        if (closed) {
+//
+//            var nodes : [SCNNode] = []
+//            for li in lines {
+//                nodes.append(li.startNode)
+//            }
+//            poly = PolyNode.polyFromNodes(nodes: nodes)
+//            sceneView?.scene.rootNode.addChildNode(poly!)
+//        }
     }
 }

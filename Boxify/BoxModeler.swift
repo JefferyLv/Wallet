@@ -16,6 +16,19 @@ class BoxModeler : Modeler {
         case draggingInitialWidth, draggingInitialLength
         case waitingForFaceDrag, draggingFace(side: Box.Side, dragStart: SCNVector3)
     }
+    
+    var planesShown: Bool {
+        get { return RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask).contains(.planes) }
+        set {
+            var mask = RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask)
+            if newValue == true {
+                mask.formUnion(.planes)
+            } else {
+                mask.subtract(.planes)
+            }
+            sceneView.pointOfView!.camera!.categoryBitMask = mask.rawValue
+        }
+    }
 
     var panGesture: UIPanGestureRecognizer!
     var doubleTapGesture: UITapGestureRecognizer!
@@ -42,7 +55,7 @@ class BoxModeler : Modeler {
                 hitTestPlane.isHidden = true
                 floor.isHidden = true
                 
-//                planesShown = true
+                planesShown = true
                 
             case .draggingInitialWidth, .draggingInitialLength:
                 rotationGesture.isEnabled = true
@@ -58,7 +71,7 @@ class BoxModeler : Modeler {
                 hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: 0, z: -1000)
                 hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 0, z: 1000)
                 
-//                planesShown = false
+                planesShown = false
                 
             case .waitingForFaceDrag:
                 rotationGesture.isEnabled = true
@@ -69,7 +82,7 @@ class BoxModeler : Modeler {
                 floor.isHidden = false
                 hitTestPlane.isHidden = true
                 
-//                planesShown = false
+                planesShown = false
                 
             case .draggingFace(let side, let dragStart):
                 rotationGesture.isEnabled = true
@@ -80,7 +93,7 @@ class BoxModeler : Modeler {
                 hitTestPlane.isHidden = false
                 hitTestPlane.position = dragStart
                 
-//                planesShown = false
+                planesShown = false
                 
                 box.highlight(side: side)
                 
@@ -149,16 +162,63 @@ class BoxModeler : Modeler {
     
     @objc dynamic func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         switch mode {
-        case .waitingForLocation:
-            findStartingLocation(gestureRecognizer)
-        case .draggingInitialWidth:
-            handleInitialWidthDrag(gestureRecognizer)
-        case .draggingInitialLength:
-            handleInitialLengthDrag(gestureRecognizer)
+        case .waitingForLocation: break
+//            findStartingLocation(gestureRecognizer)
+        case .draggingInitialWidth: break
+//            handleInitialWidthDrag(gestureRecognizer)
+        case .draggingInitialLength: break
+//            handleInitialLengthDrag(gestureRecognizer)
         case .waitingForFaceDrag:
             findFaceDragLocation(gestureRecognizer)
         case .draggingFace:
             handleFaceDrag(gestureRecognizer)
+        }
+    }
+    
+    override func handleNewPoint(pos: CGPoint) {
+        switch mode {
+        case .waitingForLocation:
+            findStartingLocation(pos:pos)
+        case .draggingInitialWidth:
+            handleInitialWidthDrag(pos:pos)
+        case .draggingInitialLength:
+            handleInitialLengthDrag(pos:pos)
+        case .waitingForFaceDrag: break
+        case .draggingFace: break
+        }
+    }
+    
+    override func updateAtTime(pos: CGPoint) {
+        switch mode {
+        case .waitingForLocation:break
+        case .draggingInitialWidth:
+            if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
+                // This drags a line out that determines the box's width and its orientation:
+                // The box's front will face 90 degrees clockwise out from the line being dragged.
+                let delta = box.position - locationInWorld
+                let distance = delta.length
+                
+                let angleInRadians = atan2(delta.z, delta.x)
+                
+                box.move(side: .right, to: distance)
+                box.rotation = SCNVector4(x: 0, y: 1, z: 0, w: -(angleInRadians + Float.pi))
+            }
+        case .draggingInitialLength:
+            if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
+                // Check where the hit vector landed within the box's own coordinate system, which may be rotated.
+                let locationInBox = box.convertPosition(locationInWorld, from: nil)
+                
+                // Front side faces toward +z, back side toward -z
+                if locationInBox.z < 0 {
+                    box.move(side: .front, to: 0)
+                    box.move(side: .back, to: locationInBox.z)
+                } else {
+                    box.move(side: .front, to: locationInBox.z)
+                    box.move(side: .back, to: 0)
+                }
+            }
+        case .waitingForFaceDrag: break
+        case .draggingFace: break
         }
     }
     
@@ -189,77 +249,32 @@ class BoxModeler : Modeler {
     
     // MARK: Drag Gesture handling
     
-    func findStartingLocation(_ gestureRecognizer: UIPanGestureRecognizer) {
-        switch gestureRecognizer.state {
-        case .began, .changed:
-            // Use real-world ARKit coordinates to determine where to start drawing
-            let touchPos = gestureRecognizer.location(in: sceneView)
-            
-            let hit = sceneView.realWorldHit(at: touchPos)
-            if let startPos = hit.position, let plane = hit.planeAnchor {
-                // Once the user hits a usable real-world plane, switch into line-dragging mode
-                box.position = startPos
-                currentAnchor = plane
-                mode = .draggingInitialWidth
-            }
-        default:
-            break
+    func findStartingLocation(pos: CGPoint) {
+        
+        let hit = sceneView.realWorldHit(at: pos)
+        if let startPos = hit.position, let plane = hit.planeAnchor {
+            // Once the user hits a usable real-world plane, switch into line-dragging mode
+            box.position = startPos
+            currentAnchor = plane
+            mode = .draggingInitialWidth
         }
     }
     
-    func handleInitialWidthDrag(_ gestureRecognizer: UIPanGestureRecognizer) {
-        switch gestureRecognizer.state {
-        case .changed:
-            let touchPos = gestureRecognizer.location(in: sceneView)
-            if let locationInWorld = sceneView.scenekitHit(at: touchPos, within: hitTestPlane) {
-                // This drags a line out that determines the box's width and its orientation:
-                // The box's front will face 90 degrees clockwise out from the line being dragged.
-                let delta = box.position - locationInWorld
-                let distance = delta.length
-                
-                let angleInRadians = atan2(delta.z, delta.x)
-                
-                box.move(side: .right, to: distance)
-                box.rotation = SCNVector4(x: 0, y: 1, z: 0, w: -(angleInRadians + Float.pi))
-            }
-        case .ended, .cancelled:
-            if abs(box.boundingBox.max.x - box.boundingBox.min.x) >= box.minLabelDistanceThreshold {
-                // If the box ended up with a usable width, switch to length-dragging mode.
-                mode = .draggingInitialLength
-            } else {
-                // Otherwise, give up on this drag and start again.
-                resetBox()
-            }
-        default:
-            break
+    func handleInitialWidthDrag(pos: CGPoint) {
+        
+        if abs(box.boundingBox.max.x - box.boundingBox.min.x) >= box.minLabelDistanceThreshold {
+            // If the box ended up with a usable width, switch to length-dragging mode.
+            mode = .draggingInitialLength
+        } else {
+            // Otherwise, give up on this drag and start again.
+            resetBox()
         }
+        
     }
     
-    func handleInitialLengthDrag(_ gestureRecognizer: UIPanGestureRecognizer) {
-        switch gestureRecognizer.state {
-        case .changed:
-            let touchPos = gestureRecognizer.location(in: sceneView)
-            if let locationInWorld = sceneView.scenekitHit(at: touchPos, within: hitTestPlane) {
-                // Check where the hit vector landed within the box's own coordinate system, which may be rotated.
-                let locationInBox = box.convertPosition(locationInWorld, from: nil)
-                
-                // Front side faces toward +z, back side toward -z
-                if locationInBox.z < 0 {
-                    box.move(side: .front, to: 0)
-                    box.move(side: .back, to: locationInBox.z)
-                } else {
-                    box.move(side: .front, to: locationInBox.z)
-                    box.move(side: .back, to: 0)
-                }
-            }
-        case .ended, .cancelled:
-            // Once the box has a usable width and depth, switch to face-dragging mode.
-            // Otherwise, stay in length-dragging mode.
-            if (box.boundingBox.max.z - box.boundingBox.min.z) >= box.minLabelDistanceThreshold {
-                mode = .waitingForFaceDrag
-            }
-        default:
-            break
+    func handleInitialLengthDrag(pos: CGPoint) {
+        if (box.boundingBox.max.z - box.boundingBox.min.z) >= box.minLabelDistanceThreshold {
+            mode = .waitingForFaceDrag
         }
     }
     

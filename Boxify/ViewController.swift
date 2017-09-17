@@ -15,22 +15,9 @@ struct RenderingCategory: OptionSet {
 class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
-    
-    var planesShown: Bool {
-        get { return RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask).contains(.planes) }
-        set {
-            var mask = RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask)
-            if newValue == true {
-                mask.formUnion(.planes)
-            } else {
-                mask.subtract(.planes)
-            }
-            sceneView.pointOfView!.camera!.categoryBitMask = mask.rawValue
-        }
-    }
-    
-//    let modeler : Modeler = BoxModeler()
-    let modeler : Modeler = PolyModeler()
+    @IBOutlet var indicator: UILabel!
+  
+    var modeler : Modeler!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +28,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.antialiasingMode = .multisampling4X
         sceneView.autoenablesDefaultLighting = true
 
-        modeler.sceneView = self.sceneView
+        modeler = BoxModeler(scene: sceneView)
+//        modeler = PolyModeler(scene: sceneView)
         modeler.setup()
     }
     
@@ -109,6 +97,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         node.pivot = SCNMatrix4(translationByX: -planeAnchor.center.x, y: -planeAnchor.center.y, z: -planeAnchor.center.z)
     }
     
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        DispatchQueue.main.async {
+            self.modeler.updateAtTime(pos: self.indicator.center)
+        }
+    }
+    
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         
@@ -122,5 +116,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
+    }
+    
+    @IBAction func addAction(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
+            self.indicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }) { (value) in
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
+                self.indicator.transform = CGAffineTransform.identity
+            }) { (value) in
+            }
+        }
+//        sender.isSelected = !sender.isSelected;
+
+        modeler.handleNewPoint(pos: indicator.center)
     }
 }
