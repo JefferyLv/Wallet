@@ -68,25 +68,22 @@ class Adorner {
         return makeNode(with: box)
     }
     
-//    static func updateLine(_ line: SCNNode, from position: SCNVector3, distance: Float, axis: SCNVector3.Axis) {
-//        guard let box = line.geometry as? SCNBox else {
-//            fatalError("Tried to update something that is not a line")
-//        }
-//
-//        let absDistance = CGFloat(abs(distance))
-//        let offset = distance * 0.5
-//        switch axis {
-//        case .x:
-//            box.width = absDistance
-//            line.position = position + SCNVector3(x: offset, y: 0, z: 0)
-//        case .y:
-//            box.height = absDistance
-//            line.position = position + SCNVector3(x: 0, y: offset, z: 0)
-//        case .z:
-//            box.length = absDistance
-//            line.position = position + SCNVector3(x: 0, y: 0, z: offset)
-//        }
-//    }
+    static func updateLine(_ line: SCNNode, from startPos: SCNVector3, to endPos: SCNVector3) {
+        guard let box = line.geometry as? SCNBox else {
+            fatalError("Tried to update something that is not a line")
+        }
+
+        let vec = endPos - startPos
+        let dis = vec.length
+
+        let axis = vec.cross(SCNVector3.axisX).normalized()
+        let angle = acos(vec.dot(SCNVector3.axisX) / dis)
+        
+        line.rotation = SCNVector4(x:axis.x, y:axis.y, z:axis.z, w: -angle)
+        line.position = startPos + vec / 2
+        
+        box.width = CGFloat(dis)
+    }
     
     static func makeLabel() -> SCNNode {
         // NOTE: SCNText font sizes are measured in the same coordinate systems as everything else, so font size 1.0 means a font that's 1 metre high.

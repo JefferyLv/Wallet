@@ -13,8 +13,9 @@ class PolyModeler : Modeler {
     
     enum InteractionMode {
         case waitingForLocation
-        case draggingNewPoint, draggingClosePoint, draggingHeightPoint
+        case draggingNewPoint, draggingHeightPoint
     }
+    var panGesture: UIPanGestureRecognizer!
     
     var hitTestPlane: SCNNode!
     var floor: SCNNode!
@@ -37,9 +38,9 @@ class PolyModeler : Modeler {
                 hitTestPlane.isHidden = true
                 floor.isHidden = true
                 
-                //                planesShown = true
+//                planesShown = true
                 
-            case .draggingNewPoint, .draggingClosePoint:
+            case .draggingNewPoint:
 //                rotationGesture.isEnabled = true
                 
                 poly.isHidden = false
@@ -102,7 +103,9 @@ class PolyModeler : Modeler {
 //    var currentAnchor: ARAnchor?
     
     override func setup() {
-      
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        sceneView.addGestureRecognizer(panGesture)
+        
         poly = Polygon()
         poly.isHidden = true
         sceneView.scene.rootNode.addChildNode(poly)
@@ -134,47 +137,74 @@ class PolyModeler : Modeler {
  
     var closed = false
     
+    @objc dynamic func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+    }
+    
     override func handleNewPoint(pos: CGPoint) {
-        let hit = sceneView.realWorldHit(at: pos)
         
-        if let startPos = hit.position, let _ = hit.planeAnchor {
-            poly.addVertex(at: startPos)
-            print(startPos)
+        switch mode {
+        case .waitingForLocation:
+            findStartingLocation(pos:pos)
+        case .draggingNewPoint:
+            AddNewPoint(pos:pos)
+        case .draggingHeightPoint: break
+        }
+    }
+    
+    override func updateAtTime(pos: CGPoint) {
+        
+        if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
+            if (mode == .draggingNewPoint) {
+                let delta = locationInWorld - poly.position
+                poly.buildLine(pos: delta)
+            }
+//            else {
+//                poly.buildLine(pos: SCNVector3Zero)
+//            }
         }
         
-//        var nearpos = pos.position;
-//        if line != nil {
-//            for l in lines {
-//
-//                let p2 = CGPoint(sceneView.projectPoint(l.startNode.worldPosition))
-//                let dis = indicator.center - p2
-//
-//                if (dis.length() < 25) {
-//                    nearpos = l.startNode.position
-//                    closed = true
-//                    break
-//                }
-//
-//            }
-//
-//            _ = line?.updatePosition(pos: nearpos!, camera: self.sceneView.session.currentFrame?.camera)
-//
-//            line = nil
-//
-//        }
-//
-//        line = LineNode(startPos: nearpos!, sceneV: sceneView)
-//        lines.append(line!)
-//
-//
-//        if (closed) {
-//
-//            var nodes : [SCNNode] = []
-//            for li in lines {
-//                nodes.append(li.startNode)
-//            }
-//            poly = PolyNode.polyFromNodes(nodes: nodes)
-//            sceneView?.scene.rootNode.addChildNode(poly!)
-//        }
     }
+    
+    func findStartingLocation(pos:CGPoint) {
+        let hit = sceneView.realWorldHit(at: pos)
+        if let startPos = hit.position, let plane = hit.planeAnchor {
+            // Once the user hits a usable real-world plane, switch into line-dragging mode
+            poly.position = startPos
+            poly.addVertex(at: SCNVector3Zero)
+            currentAnchor = plane
+            mode = .draggingNewPoint
+        }
+    }
+    
+    func AddNewPoint(pos: CGPoint) {
+        if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
+            let delta = locationInWorld - poly.position
+            let closed = findNearest(pos: delta)
+
+            if (closed) {
+                poly.addVertex(at: SCNVector3Zero)
+                
+                mode = .draggingHeightPoint
+            } else {
+                poly.addVertex(at: delta)
+            }
+        }
+    }
+    
+    func AddHeightPoint(pos:CGPoint) {
+        
+    }
+    
+    func findNearest(pos:SCNVector3) -> Bool{
+        for ver in poly.vertices {
+
+            let dis = ver.position - pos
+            if (dis.length < 0.1) {
+
+                return true
+            }
+        }
+        return false
+    }
+
 }

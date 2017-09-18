@@ -28,8 +28,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.antialiasingMode = .multisampling4X
         sceneView.autoenablesDefaultLighting = true
 
-        modeler = BoxModeler(scene: sceneView)
-//        modeler = PolyModeler(scene: sceneView)
+//        modeler = BoxModeler(scene: sceneView)
+        modeler = PolyModeler(scene: sceneView)
         modeler.setup()
     }
     

@@ -16,19 +16,7 @@ class BoxModeler : Modeler {
         case draggingInitialWidth, draggingInitialLength
         case waitingForFaceDrag, draggingFace(side: Box.Side, dragStart: SCNVector3)
     }
-    
-    var planesShown: Bool {
-        get { return RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask).contains(.planes) }
-        set {
-            var mask = RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask)
-            if newValue == true {
-                mask.formUnion(.planes)
-            } else {
-                mask.subtract(.planes)
-            }
-            sceneView.pointOfView!.camera!.categoryBitMask = mask.rawValue
-        }
-    }
+
 
     var panGesture: UIPanGestureRecognizer!
     var doubleTapGesture: UITapGestureRecognizer!

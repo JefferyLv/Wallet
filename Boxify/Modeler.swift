@@ -13,6 +13,19 @@ class Modeler {
     var sceneView: ARSCNView!
     var currentAnchor: ARAnchor?
     
+    var planesShown: Bool {
+        get { return RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask).contains(.planes) }
+        set {
+            var mask = RenderingCategory(rawValue: sceneView.pointOfView!.camera!.categoryBitMask)
+            if newValue == true {
+                mask.formUnion(.planes)
+            } else {
+                mask.subtract(.planes)
+            }
+            sceneView.pointOfView!.camera!.categoryBitMask = mask.rawValue
+        }
+    }
+    
     init (scene: ARSCNView) {
         sceneView = scene
     }
