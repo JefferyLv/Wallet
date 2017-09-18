@@ -38,7 +38,7 @@ class PolyModeler : Modeler {
                 hitTestPlane.isHidden = true
                 floor.isHidden = true
                 
-//                planesShown = true
+                planesShown = true
                 
             case .draggingNewPoint:
 //                rotationGesture.isEnabled = true
@@ -54,7 +54,7 @@ class PolyModeler : Modeler {
                 hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: 0, z: -1000)
                 hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 0, z: 1000)
                 
-                //                planesShown = false
+                planesShown = false
             case .draggingHeightPoint:
                 break
 //            case .waitingForFaceDrag:
@@ -152,17 +152,13 @@ class PolyModeler : Modeler {
     }
     
     override func updateAtTime(pos: CGPoint) {
-        
-        if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
-            if (mode == .draggingNewPoint) {
+        if (mode == .draggingNewPoint) {
+            if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
+                
                 let delta = locationInWorld - poly.position
                 poly.buildLine(pos: delta)
             }
-//            else {
-//                poly.buildLine(pos: SCNVector3Zero)
-//            }
         }
-        
     }
     
     func findStartingLocation(pos:CGPoint) {

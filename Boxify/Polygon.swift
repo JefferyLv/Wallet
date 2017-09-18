@@ -78,24 +78,5 @@ class Polygon: SCNNode {
     func buildWalls() {
         
     }
-    
-    func checkNearest(at pos: SCNVector3) -> Bool {
-        
-        for vert in vertices {
-            
-//            let p2 = CGPoint(sceneView.projectPoint(l.startNode.worldPosition))
-//            let dis = indicator.center - p2
-            let vp = vert.position
-            let dis = vp - pos
-            
-//            if (dis.length() < 25) {
-//                nearpos = l.startNode.position
-//                closed = true
-//                break
-//            }
-            
-        }
-        
-        return true
-    }
+
 }
