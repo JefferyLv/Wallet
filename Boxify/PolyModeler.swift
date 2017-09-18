@@ -153,11 +153,14 @@ class PolyModeler : Modeler {
     
     override func updateAtTime(pos: CGPoint) {
         if (mode == .draggingNewPoint) {
+            poly.trackingline.isHidden = false
             if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
-                
+
                 let delta = locationInWorld - poly.position
                 poly.buildLine(pos: delta)
             }
+        } else {
+            poly.trackingline.isHidden = true
         }
     }
     
@@ -179,6 +182,8 @@ class PolyModeler : Modeler {
 
             if (closed) {
                 poly.addVertex(at: SCNVector3Zero)
+                
+                poly.buildPoly()
                 
                 mode = .draggingHeightPoint
             } else {

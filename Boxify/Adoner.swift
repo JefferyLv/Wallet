@@ -110,29 +110,27 @@ class Adorner {
         return node
     }
     
-//    static func makeFace(for side: Side) -> SCNNode {
-//        let plane = SCNPlane()
-//        let node = makeNode(with: plane)
-//        node.name = side.rawValue
-//        node.geometry?.firstMaterial?.transparency = 0.1
-//        node.geometry?.firstMaterial?.writesToDepthBuffer = false
-//
-//        // Rotate each face to the appropriate facing
-//        switch side {
-//        case .top:
-//            node.orientation = SCNQuaternion(radians: -Float.pi / 2, around: .axisX)
-//        case .bottom:
-//            node.orientation = SCNQuaternion(radians: Float.pi / 2, around: .axisX)
-//        case .front:
-//            break
-//        case .back:
-//            node.orientation = SCNQuaternion(radians: Float.pi, around: .axisY)
-//        case .left:
-//            node.orientation = SCNQuaternion(radians: -Float.pi / 2, around: .axisY)
-//        case .right:
-//            node.orientation = SCNQuaternion(radians: Float.pi / 2, around: .axisY)
-//        }
-//
-//        return node
-//    }
+    static func makePolygon(nodes: [SCNNode]) -> SCNNode {
+        
+        var vertices : [SCNVector3] = []
+        for node in nodes {
+            vertices.append(node.position)
+        }
+        let source = SCNGeometrySource(vertices: vertices)
+        
+        var indices : [Int32] = [Int32(nodes.count)]
+        for idx in 0..<nodes.count {
+            indices.append(Int32(idx))
+        }
+        let indexData = NSData(bytes: indices, length: MemoryLayout<Int32>.size * indices.count)
+        let element = SCNGeometryElement(data: indexData as Data, primitiveType: .polygon, primitiveCount: 1, bytesPerIndex: MemoryLayout<Int32>.size)
+        
+        let poly = SCNGeometry(sources: [source], elements: [element])
+        
+        poly.firstMaterial?.lightingModel = .constant
+        poly.firstMaterial?.diffuse.contents = UIColor.white
+        poly.firstMaterial?.transparency = 0.2
+        
+        return SCNNode(geometry: poly)
+    }
 }
