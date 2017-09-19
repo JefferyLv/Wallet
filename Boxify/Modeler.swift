@@ -44,10 +44,6 @@ class Modeler {
         return mod
     }
     
-    func handleNewPoint(pos: CGPoint) {
-        
-    }
-    
     func updateAtTime(pos: CGPoint) {
 
     }

@@ -18,6 +18,7 @@ class PolyModeler : Modeler {
 
     }
     var panGesture: UIPanGestureRecognizer!
+    var tapGesture: UITapGestureRecognizer!
     
     var hitTestPlane: SCNNode!
     var floor: SCNNode!
@@ -92,6 +93,9 @@ class PolyModeler : Modeler {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         sceneView.addGestureRecognizer(panGesture)
         
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(tapGesture)
+        
         poly = Polygon()
         poly.isHidden = true
         sceneView.scene.rootNode.addChildNode(poly)
@@ -127,9 +131,7 @@ class PolyModeler : Modeler {
         
         switch mode {
         case .waitingForLocation: break
-
         case .draggingNewPoint: break
-
         case .draggingHeightPoint: 
             AddHeightPoint(gestureRecognizer)
         case .draggingTop:
@@ -138,15 +140,15 @@ class PolyModeler : Modeler {
         }
     }
     
-    override func handleNewPoint(pos: CGPoint) {
+    @objc dynamic func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         
         switch mode {
         case .waitingForLocation:
-            findStartingLocation(pos:pos)
+            findStartingLocation(pos: indicator.center)
         case .draggingNewPoint:
-            AddNewPoint(pos:pos)
+            AddNewPoint(pos: indicator.center)
         case .draggingHeightPoint: break
-        case .draggingTop:break
+        case .draggingTop: break
         }
     }
     

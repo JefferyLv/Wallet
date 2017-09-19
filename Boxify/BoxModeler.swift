@@ -19,6 +19,7 @@ class BoxModeler : Modeler {
 
 
     var panGesture: UIPanGestureRecognizer!
+    var tapGesture: UITapGestureRecognizer!
     var doubleTapGesture: UITapGestureRecognizer!
     var rotationGesture: UIRotationGestureRecognizer!
 
@@ -112,6 +113,9 @@ class BoxModeler : Modeler {
     override func setup() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(tapGesture)
+        
         doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTapGesture.numberOfTapsRequired = 2
         
@@ -155,11 +159,8 @@ class BoxModeler : Modeler {
     @objc dynamic func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         switch mode {
         case .waitingForLocation: break
-//            findStartingLocation(gestureRecognizer)
         case .draggingInitialWidth: break
-//            handleInitialWidthDrag(gestureRecognizer)
         case .draggingInitialLength: break
-//            handleInitialLengthDrag(gestureRecognizer)
         case .waitingForFaceDrag:
             findFaceDragLocation(gestureRecognizer)
         case .draggingFace:
@@ -167,14 +168,15 @@ class BoxModeler : Modeler {
         }
     }
     
-    override func handleNewPoint(pos: CGPoint) {
+    @objc dynamic func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        
         switch mode {
         case .waitingForLocation:
-            findStartingLocation(pos:pos)
+            findStartingLocation(pos: indicator.center)
         case .draggingInitialWidth:
-            handleInitialWidthDrag(pos:pos)
+            handleInitialWidthDrag(pos: indicator.center)
         case .draggingInitialLength:
-            handleInitialLengthDrag(pos:pos)
+            handleInitialLengthDrag(pos: indicator.center)
         case .waitingForFaceDrag: break
         case .draggingFace: break
         }
