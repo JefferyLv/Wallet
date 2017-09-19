@@ -28,8 +28,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.antialiasingMode = .multisampling4X
         sceneView.autoenablesDefaultLighting = true
 
-        modeler = BoxModeler(scene: sceneView)
-//        modeler = PolyModeler(scene: sceneView)
+//        modeler = BoxModeler(scene: sceneView)
+        modeler = PolyModeler(scene: sceneView)
         modeler.indicator = indicator
         modeler.setup()
     }
@@ -131,5 +131,17 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 //        sender.isSelected = !sender.isSelected;
 
 //        modeler.handleNewPoint(pos: indicator.center)
+    }
+    
+    @IBAction func restartAction(_ sender: UIButton) {
+        
+        modeler.cleanup()
+
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        
+        // Run the view's session
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
 }

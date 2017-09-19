@@ -107,9 +107,7 @@ class BoxModeler : Modeler {
             }
         }
     }
-    
 
-    
     override func setup() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         
@@ -152,6 +150,8 @@ class BoxModeler : Modeler {
         
         box.addChildNode(floor)
         box.categoryBitMask |= RenderingCategory.reflected.rawValue
+        
+        mode = .waitingForLocation
     }
     
     // MARK: - Touch handling

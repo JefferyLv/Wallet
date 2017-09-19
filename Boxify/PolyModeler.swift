@@ -123,6 +123,8 @@ class PolyModeler : Modeler {
         
         poly.addChildNode(floor)
         poly.categoryBitMask |= RenderingCategory.reflected.rawValue
+        
+        mode = .waitingForLocation
     }
  
     var closed = false
@@ -246,5 +248,4 @@ class PolyModeler : Modeler {
         }
         return false
     }
-
 }

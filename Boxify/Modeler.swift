@@ -36,16 +36,19 @@ class Modeler {
         sceneView = scene
     }
     
-    func setup () {
-    }
-    
     var mod: Model!
     func model() -> SCNNode {
         return mod
     }
     
     func updateAtTime(pos: CGPoint) {
-
     }
     
+    func setup () {
+    }
+    
+    func cleanup() {
+        model().removeFromParentNode()
+        setup()
+    }
 }

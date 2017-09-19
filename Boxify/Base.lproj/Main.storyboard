@@ -31,6 +31,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awg-o4-heb">
+                                <rect key="frame" x="329" y="625" width="30" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="refresh"/>
+                                <connections>
+                                    <action selector="restartAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="5hV-nW-2ga"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -44,4 +52,7 @@
             <point key="canvasLocation" x="140" y="162.3688155922039"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="refresh" width="20" height="23"/>
+    </resources>
 </document>
