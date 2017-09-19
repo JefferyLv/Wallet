@@ -27,10 +27,10 @@ class Polygon: SCNNode {
     let lengthFormatter: NumberFormatter
     
     var vertices: [SCNNode] = []
-    var lines:  [SCNNode] = []
+    var lines: [SCNNode] = []
     
     var sideLines: [SCNNode] = []
-    var sideFaces:  [SCNNode] = []
+    var sideFaces: [SCNNode] = []
     var topLines: [SCNNode] = []
     var topVerts: [SCNNode] = []
     var bottomFace: SCNNode? = nil
@@ -40,20 +40,20 @@ class Polygon: SCNNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
- 
+    
     override init() {
         self.lengthFormatter = NumberFormatter()
         self.lengthFormatter.numberStyle = .decimal
         self.lengthFormatter.maximumFractionDigits = 1
         self.lengthFormatter.multiplier = 100
-
+        
         super.init()
         
         self.addChildNode(self.trackingline)
     }
     
     func addVertex(at pos: SCNVector3) {
- 
+        
         let vertex = Adorner.makeVertex()
         vertex.position = pos
         addChildNode(vertex)
@@ -86,7 +86,7 @@ class Polygon: SCNNode {
         bottomFace = Adorner.makePolygon(nodes: vertices)
         addChildNode(bottomFace!)
         
-        topFace = bottomFace?.clone()
+        topFace = Adorner.makePolygon(nodes: vertices)
         addChildNode(topFace!)
         
         buildWalls()
@@ -133,7 +133,7 @@ class Polygon: SCNNode {
             let sideface = Adorner.makeFace(orientation: SCNVector4Zero)
             sideface.rotation = line.rotation
             sideface.position = line.position
-
+            
             let geoFace = sideface.geometry as! SCNPlane
             let geoLine = line.geometry as! SCNBox
             geoFace.width = geoLine.width
@@ -143,7 +143,7 @@ class Polygon: SCNNode {
             
             sideFaces.append(sideface)
         }
-
+        
     }
     
     func updateWalls(height: CGFloat) {
@@ -161,7 +161,7 @@ class Polygon: SCNNode {
             toPos.y = Float(height)
             Adorner.updateLine(sideLines[i], from: fromPos, to: toPos)
         }
-
+        
         for line in topLines {
             line.position.y = Float(height)
         }
@@ -170,5 +170,27 @@ class Polygon: SCNNode {
             vert.position.y = Float(height)
         }
     }
-
+    
+    func highlight(face: SCNNode) {
+        setOpacity(face: face, opacity: 0.8)
+    }
+    
+    func clearHighlight() {
+        let faces = [topFace, bottomFace]
+        for face in faces {
+            if (face != nil) {
+                setOpacity(face: face!, opacity: 0.1)
+            }
+        }
+    }
+    
+    func setOpacity(face: SCNNode, opacity: CGFloat) {
+        //        guard let geoface = face.geometry as? SCNPlane else {
+        //            fatalError("No face found")
+        //        }
+        
+        face.geometry?.firstMaterial?.transparency = opacity
+        face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 0.8)
+    }
+    
 }

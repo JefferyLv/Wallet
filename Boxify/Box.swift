@@ -201,7 +201,7 @@ class Box: SCNNode {
     }
     
     func highlight(side: Side) {
-        setOpacity(1.0, for: side)
+        setOpacity(0.8, for: side)
     }
     
     func clearHighlights() {

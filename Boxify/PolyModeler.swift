@@ -35,7 +35,7 @@ class PolyModeler : Modeler {
 //                rotationGesture.isEnabled = false
                 
                 poly.isHidden = true
-//                poly.clearHighlights()
+                poly.clearHighlight()
                 
                 hitTestPlane.isHidden = true
                 floor.isHidden = true
@@ -46,7 +46,7 @@ class PolyModeler : Modeler {
 //                rotationGesture.isEnabled = true
                 
                 poly.isHidden = false
-//                poly.clearHighlights()
+                poly.clearHighlight()
                 
                 floor.isHidden = false
                 
@@ -58,47 +58,10 @@ class PolyModeler : Modeler {
                 
                 planesShown = false
             case .draggingHeightPoint:
-                break
-//            case .waitingForFaceDrag:
-//                rotationGesture.isEnabled = true
-//
-//                box.isHidden = false
-//                box.clearHighlights()
-//
-//                floor.isHidden = false
-//                hitTestPlane.isHidden = true
-//
-//                //                planesShown = false
-//
                 
-//            case .draggingFace(let side, let dragStart):
-//                rotationGesture.isEnabled = true
-//
-//                box.isHidden = false
-//                floor.isHidden = false
-//
-//                hitTestPlane.isHidden = false
-//                hitTestPlane.position = dragStart
-//
-//                //                planesShown = false
-//
-//                box.highlight(side: side)
-//
-//                // Place the hit-test plane straight through the dragged side, centered at the point on which the drag started.
-//                // This makes the drag operation act as though you're dragging that exact point on the side to a new location.
-//                // TODO: the plane should be constrained so that it always rotates to face the camera along the axis that goes through the dragged side.
-//                switch side.axis {
-//                case .x:
-//                    hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: -1000, z: 0)
-//                    hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 1000, z: 0)
-//                case .y:
-//                    hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: -1000, z: 0)
-//                    hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 1000, z: 0)
-//                case .z:
-//                    hitTestPlane.boundingBox.min = SCNVector3(x: 0, y: -1000, z: -1000)
-//                    hitTestPlane.boundingBox.max = SCNVector3(x: 0, y: 1000, z: 1000)
-//                }
-//            }
+                poly.isHidden = false
+                poly.clearHighlight()
+
             case .draggingTop(let dragStart):
                 
                 floor.isHidden = false
@@ -106,11 +69,12 @@ class PolyModeler : Modeler {
                 hitTestPlane.isHidden = false
                 hitTestPlane.position = dragStart
                 
-
                 hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: -1000, z: 0)
                 hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 1000, z: 0)
                 
                 planesShown = false
+                
+                poly.highlight(face: poly.topFace!)
             }
         }
     }
