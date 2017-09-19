@@ -52,10 +52,9 @@ class Polygon: SCNNode {
  
         let vertex = Adorner.makeVertex()
         vertex.position = pos
-        
         addChildNode(vertex)
-        vertices.append(vertex)
         
+        vertices.append(vertex)
         buildLines()
     }
     
@@ -68,30 +67,60 @@ class Polygon: SCNNode {
         let startPos = vertices[vertices.count - 2].position
         
         let line = Adorner.makeLine()
-        
         Adorner.updateLine(line, from: startPos, to: endPos)
         addChildNode(line)
+        
+        lines.append(line)
     }
     
     func buildLine(pos: SCNVector3) {
         Adorner.updateLine(trackingline, from: (vertices.last?.position)!, to: pos)
     }
     
-    func buildPoly()
+    func buildFace()
     {
         bottomFace = Adorner.makePolygon(nodes: vertices)
         addChildNode(bottomFace!)
         
         topFace = bottomFace?.clone()
         addChildNode(topFace!)
+        
+        buildWalls()
     }
     
-    func buildTop(y: Float) {
-        topFace?.position.y = y
+    func updateTop(height: Float) {
+        topFace?.position.y = height
+        
+        updateWalls(height: CGFloat(height))
     }
     
     func buildWalls() {
         
+        for line in lines {
+            let sideface = Adorner.makeFace(orientation: SCNVector4Zero)
+            sideface.rotation = line.rotation
+            sideface.position = line.position
+
+            let geoFace = sideface.geometry as! SCNPlane
+            let geoLine = line.geometry as! SCNBox
+            geoFace.width = geoLine.width
+            geoFace.height = 0
+            
+            addChildNode(sideface)
+            
+            sideFaces.append(sideface)
+        }
+
+    }
+    
+    func updateWalls(height: CGFloat) {
+        
+        for face in sideFaces {
+            face.position.y = Float(height / 2)
+            
+            let geoFace = face.geometry as! SCNPlane
+            geoFace.height = height
+        }
     }
 
 }

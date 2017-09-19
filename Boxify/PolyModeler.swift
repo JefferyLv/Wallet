@@ -214,7 +214,7 @@ class PolyModeler : Modeler {
             if (closed) {
                 poly.addVertex(at: SCNVector3Zero)
                 
-                poly.buildPoly()
+                poly.buildFace()
                 
                 mode = .draggingHeightPoint
             } else {
@@ -253,7 +253,7 @@ class PolyModeler : Modeler {
                 let locationInBox = poly.convertPosition(locationInWorld, from: nil)
                 
                 let distanceForAxis = locationInBox.value(for: .y)
-                poly.buildTop(y: distanceForAxis)
+                poly.updateTop(height: distanceForAxis)
             }
         case .ended, .cancelled:
             mode = .draggingHeightPoint
@@ -266,7 +266,7 @@ class PolyModeler : Modeler {
         for ver in poly.vertices {
 
             let dis = ver.position - pos
-            if (dis.length < 0.1) {
+            if (dis.length < 0.05) {
 
                 return true
             }
