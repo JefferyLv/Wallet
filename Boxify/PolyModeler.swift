@@ -106,6 +106,10 @@ class PolyModeler : Modeler {
                 hitTestPlane.isHidden = false
                 hitTestPlane.position = dragStart
                 
+
+                hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: -1000, z: 0)
+                hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 1000, z: 0)
+                
                 planesShown = false
             }
         }
@@ -249,8 +253,7 @@ class PolyModeler : Modeler {
                 let locationInBox = poly.convertPosition(locationInWorld, from: nil)
                 
                 let distanceForAxis = locationInBox.value(for: .y)
-                print(locationInBox)
-                poly.buildTop(y: -distanceForAxis)
+                poly.buildTop(y: distanceForAxis)
             }
         case .ended, .cancelled:
             mode = .draggingHeightPoint
