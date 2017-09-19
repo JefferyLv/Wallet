@@ -30,6 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
 
 //        modeler = BoxModeler(scene: sceneView)
         modeler = PolyModeler(scene: sceneView)
+        modeler.indicator = indicator
         modeler.setup()
     }
     

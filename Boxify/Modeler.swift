@@ -11,6 +11,7 @@ import SceneKit
 
 class Modeler {
     var sceneView: ARSCNView!
+    var indicator: UILabel!
     var currentAnchor: ARAnchor?
     
     var planesShown: Bool {
@@ -24,6 +25,11 @@ class Modeler {
             }
             sceneView.pointOfView!.camera!.categoryBitMask = mask.rawValue
         }
+    }
+    
+    var indicatorShown: Bool {
+        get { return !indicator.isHidden }
+        set { indicator.isHidden = !newValue }
     }
     
     init (scene: ARSCNView) {

@@ -44,6 +44,7 @@ class BoxModeler : Modeler {
                 floor.isHidden = true
                 
                 planesShown = true
+                indicatorShown = true
                 
             case .draggingInitialWidth, .draggingInitialLength:
                 rotationGesture.isEnabled = true
@@ -59,7 +60,8 @@ class BoxModeler : Modeler {
                 hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: 0, z: -1000)
                 hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 0, z: 1000)
                 
-                planesShown = false
+                planesShown = true
+                indicatorShown = true
                 
             case .waitingForFaceDrag:
                 rotationGesture.isEnabled = true
@@ -71,6 +73,7 @@ class BoxModeler : Modeler {
                 hitTestPlane.isHidden = true
                 
                 planesShown = false
+                indicatorShown = false
                 
             case .draggingFace(let side, let dragStart):
                 rotationGesture.isEnabled = true
@@ -82,6 +85,7 @@ class BoxModeler : Modeler {
                 hitTestPlane.position = dragStart
                 
                 planesShown = false
+                indicatorShown = false
                 
                 box.highlight(side: side)
                 

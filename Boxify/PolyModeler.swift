@@ -41,6 +41,7 @@ class PolyModeler : Modeler {
                 floor.isHidden = true
                 
                 planesShown = true
+                indicatorShown = true
                 
             case .draggingNewPoint:
 //                rotationGesture.isEnabled = true
@@ -56,11 +57,16 @@ class PolyModeler : Modeler {
                 hitTestPlane.boundingBox.min = SCNVector3(x: -1000, y: 0, z: -1000)
                 hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 0, z: 1000)
                 
-                planesShown = false
+                planesShown = true
+                indicatorShown = true
+                
             case .draggingHeightPoint:
                 
                 poly.isHidden = false
                 poly.clearHighlight()
+                
+                planesShown = false
+                indicatorShown = false
 
             case .draggingTop(let dragStart):
                 
@@ -73,6 +79,7 @@ class PolyModeler : Modeler {
                 hitTestPlane.boundingBox.max = SCNVector3(x: 1000, y: 1000, z: 0)
                 
                 planesShown = false
+                indicatorShown = false
                 
                 poly.highlight(face: poly.topFace!)
             }
