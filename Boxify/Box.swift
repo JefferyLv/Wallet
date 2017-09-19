@@ -197,7 +197,7 @@ class Box: SCNNode {
             fatalError("No face found for \(side)")
         }
         face.geometry?.firstMaterial?.transparency = opacity
-        face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 1.0)
+        face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 0.8)
     }
     
     func highlight(side: Side) {
