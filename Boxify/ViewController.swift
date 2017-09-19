@@ -16,8 +16,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var indicator: UILabel!
+    @IBOutlet var boxButton: UIButton!
+    @IBOutlet var polyButton: UIButton!
   
-    var modeler : Modeler!
+    var bModeler : Modeler!
+    var pModeler : Modeler!
+    var modeler  : Modeler!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +32,16 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         sceneView.antialiasingMode = .multisampling4X
         sceneView.autoenablesDefaultLighting = true
 
-//        modeler = BoxModeler(scene: sceneView)
-        modeler = PolyModeler(scene: sceneView)
-        modeler.indicator = indicator
-        modeler.setup()
+        bModeler = BoxModeler(scene: sceneView)
+        bModeler.indicator = indicator
+        bModeler.setup()
+        
+        pModeler = PolyModeler(scene: sceneView)
+        pModeler.indicator = indicator
+        pModeler.setup()
+        
+        modeler = bModeler
+        bModeler.active()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,4 +154,28 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         // Run the view's session
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     }
+    
+    @IBAction func polyAction(_ sender: UIButton) {
+        polyButton.isSelected = true
+        boxButton.isSelected = false
+        
+        if modeler == bModeler {
+            bModeler.deactive()
+            pModeler.active()
+            modeler = pModeler
+        }
+        
+    }
+    
+    @IBAction func boxAction(_ sender: UIButton) {
+        boxButton.isSelected = true
+        polyButton.isSelected = false
+        
+        if modeler == pModeler {
+            pModeler.deactive()
+            bModeler.active()
+            modeler = bModeler
+        }
+    }
+    
 }

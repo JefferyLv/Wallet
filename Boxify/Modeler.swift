@@ -9,7 +9,11 @@
 import ARKit
 import SceneKit
 
-class Modeler {
+class Modeler : Equatable {
+    static func ==(lhs: Modeler, rhs: Modeler) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+    
     var sceneView: ARSCNView!
     var indicator: UILabel!
     var currentAnchor: ARAnchor?
@@ -50,5 +54,10 @@ class Modeler {
     func cleanup() {
         model().removeFromParentNode()
         setup()
+    }
+    
+    func active() {
+    }
+    func deactive() {
     }
 }

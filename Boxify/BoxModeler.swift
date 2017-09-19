@@ -110,23 +110,16 @@ class BoxModeler : Modeler {
 
     override func setup() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        sceneView.addGestureRecognizer(tapGesture)
-        
+
         doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTapGesture.numberOfTapsRequired = 2
         
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(handleRotation))
         
-        sceneView.addGestureRecognizer(panGesture)
-        sceneView.addGestureRecognizer(doubleTapGesture)
-        sceneView.addGestureRecognizer(rotationGesture)
-        
         box = Box()
         box.isHidden = true
-        sceneView.scene.rootNode.addChildNode(box)
-        
+
         // Create an invisible plane used for hit-testing during drag operations.
         // This is a child of the box, so it inherits the box's own transform.
         // It is resized and repositioned within the box depending on what part of the box is being dragged.
@@ -330,5 +323,24 @@ class BoxModeler : Modeler {
         mode = .waitingForLocation
         box.resizeTo(min: .zero, max: .zero)
         currentAnchor = nil
+    }
+    
+    override func active() {
+        sceneView.addGestureRecognizer(panGesture)
+        sceneView.addGestureRecognizer(tapGesture)
+        sceneView.addGestureRecognizer(doubleTapGesture)
+        sceneView.addGestureRecognizer(rotationGesture)
+        
+        sceneView.scene.rootNode.addChildNode(box)
+                mode = .waitingForLocation
+    }
+    
+    override func deactive() {
+        sceneView.removeGestureRecognizer(panGesture)
+        sceneView.removeGestureRecognizer(tapGesture)
+        sceneView.removeGestureRecognizer(doubleTapGesture)
+        sceneView.removeGestureRecognizer(rotationGesture)
+        
+        cleanup()
     }
 }

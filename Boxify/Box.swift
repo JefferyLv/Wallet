@@ -192,21 +192,22 @@ class Box: SCNNode {
     
     //MARK: - Transformation
     
-    fileprivate func setOpacity(_ opacity: CGFloat, for side: Side) {
+    fileprivate func setOpacity(_ opacity: CGFloat, for side: Side, color: UIColor) {
         guard let face = childNode(withName: side.rawValue, recursively: false) else {
             fatalError("No face found for \(side)")
         }
+        face.geometry?.firstMaterial?.diffuse.contents = color
         face.geometry?.firstMaterial?.transparency = opacity
         face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 0.8)
     }
     
     func highlight(side: Side) {
-        setOpacity(0.8, for: side)
+        setOpacity(0.8, for: side, color: #colorLiteral(red: 0.8736846447, green: 0.9426622987, blue: 0.9978836179, alpha: 1))
     }
     
     func clearHighlights() {
         for (side, _) in faces {
-            setOpacity(0.1, for: side)
+            setOpacity(0.1, for: side, color: UIColor.white)
         }
     }
     

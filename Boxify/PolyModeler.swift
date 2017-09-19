@@ -91,14 +91,10 @@ class PolyModeler : Modeler {
     
     override func setup() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        sceneView.addGestureRecognizer(panGesture)
-        
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        sceneView.addGestureRecognizer(tapGesture)
         
         poly = Polygon()
         poly.isHidden = true
-        sceneView.scene.rootNode.addChildNode(poly)
         
         // Create an invisible plane used for hit-testing during drag operations.
         // This is a child of the box, so it inherits the box's own transform.
@@ -247,5 +243,24 @@ class PolyModeler : Modeler {
             }
         }
         return false
+    }
+    
+    override func active() {
+        sceneView.addGestureRecognizer(panGesture)
+        sceneView.addGestureRecognizer(tapGesture)
+//        sceneView.addGestureRecognizer(doubleTapGesture)
+//        sceneView.addGestureRecognizer(rotationGesture)
+        
+       sceneView.scene.rootNode.addChildNode(poly)
+                mode = .waitingForLocation
+    }
+    
+    override func deactive() {
+        sceneView.removeGestureRecognizer(panGesture)
+        sceneView.removeGestureRecognizer(tapGesture)
+//        sceneView.removeGestureRecognizer(doubleTapGesture)
+//        sceneView.removeGestureRecognizer(rotationGesture)
+        
+        cleanup()
     }
 }

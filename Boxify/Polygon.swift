@@ -172,23 +172,24 @@ class Polygon: SCNNode {
     }
     
     func highlight(face: SCNNode) {
-        setOpacity(face: face, opacity: 0.8)
+        setOpacity(face: face, opacity: 0.8, color: #colorLiteral(red: 0.8736846447, green: 0.9426622987, blue: 0.9978836179, alpha: 1))
     }
     
     func clearHighlight() {
         let faces = [topFace, bottomFace]
         for face in faces {
             if (face != nil) {
-                setOpacity(face: face!, opacity: 0.1)
+                setOpacity(face: face!, opacity: 0.1, color: UIColor.white)
             }
         }
     }
     
-    func setOpacity(face: SCNNode, opacity: CGFloat) {
+    func setOpacity(face: SCNNode, opacity: CGFloat, color: UIColor) {
         //        guard let geoface = face.geometry as? SCNPlane else {
         //            fatalError("No face found")
         //        }
         
+        face.geometry?.firstMaterial?.diffuse.contents = color
         face.geometry?.firstMaterial?.transparency = opacity
         face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 0.8)
     }

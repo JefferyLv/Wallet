@@ -32,18 +32,41 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awg-o4-heb">
-                                <rect key="frame" x="329" y="625" width="30" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="329" y="625" width="36" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="refresh"/>
                                 <connections>
                                     <action selector="restartAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="5hV-nW-2ga"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EKo-UO-XFp">
+                                <rect key="frame" x="329" y="20" width="36" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="rectangle_normal"/>
+                                <state key="selected" image="rectangle"/>
+                                <connections>
+                                    <action selector="boxAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="QpD-qz-XUB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raK-JP-rnB">
+                                <rect key="frame" x="329" y="64" width="36" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="polygon_normal"/>
+                                <state key="selected" image="polygon"/>
+                                <connections>
+                                    <action selector="polyAction:" destination="BV1-FR-VrT" eventType="touchUpInside" id="7iA-qP-Ijh"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="boxButton" destination="EKo-UO-XFp" id="ncg-6g-L3k"/>
                         <outlet property="indicator" destination="L31-6v-ND6" id="rTw-hw-DNa"/>
+                        <outlet property="polyButton" destination="raK-JP-rnB" id="mGL-LB-u0s"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="RfL-qd-ZrE"/>
                     </connections>
                 </viewController>
@@ -53,6 +76,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="polygon" width="20" height="20"/>
+        <image name="polygon_normal" width="20" height="20"/>
+        <image name="rectangle" width="20" height="20"/>
+        <image name="rectangle_normal" width="20" height="20"/>
         <image name="refresh" width="20" height="23"/>
     </resources>
 </document>
