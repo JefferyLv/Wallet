@@ -28,7 +28,11 @@ class Polygon: SCNNode {
     
     var vertices: [SCNNode] = []
     var lines:  [SCNNode] = []
+    
+    var sideLines: [SCNNode] = []
     var sideFaces:  [SCNNode] = []
+    var topLines: [SCNNode] = []
+    var topVerts: [SCNNode] = []
     var bottomFace: SCNNode? = nil
     var topFace: SCNNode? = nil
     var trackingline: SCNNode = Adorner.makeLine()
@@ -86,12 +90,41 @@ class Polygon: SCNNode {
         addChildNode(topFace!)
         
         buildWalls()
+        buildSides()
+        buildTops()
     }
     
     func updateTop(height: Float) {
         topFace?.position.y = height
         
         updateWalls(height: CGFloat(height))
+    }
+    
+    func buildTops() {
+        for line in lines {
+            let cline = line.clone()
+            
+            addChildNode(cline)
+            
+            topLines.append(cline)
+        }
+        
+        for vert in vertices {
+            let cvert = vert.clone()
+            
+            addChildNode(cvert)
+            topVerts.append(cvert)
+        }
+    }
+    
+    func buildSides() {
+        for vertex in vertices {
+            let line = Adorner.makeLine()
+            Adorner.updateLine(line, from: vertex.position, to: vertex.position)
+            addChildNode(line)
+            
+            sideLines.append(line)
+        }
     }
     
     func buildWalls() {
@@ -120,6 +153,21 @@ class Polygon: SCNNode {
             
             let geoFace = face.geometry as! SCNPlane
             geoFace.height = height
+        }
+        
+        for i in 0...sideLines.count - 1 {
+            let fromPos = vertices[i].position
+            var toPos = vertices[i].position
+            toPos.y = Float(height)
+            Adorner.updateLine(sideLines[i], from: fromPos, to: toPos)
+        }
+
+        for line in topLines {
+            line.position.y = Float(height)
+        }
+        
+        for vert in topVerts {
+            vert.position.y = Float(height)
         }
     }
 
