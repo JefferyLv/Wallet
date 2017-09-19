@@ -44,6 +44,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         bModeler.active()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.delegate = self
         sceneView.addGestureRecognizer(tapGesture)
     }
     
@@ -167,7 +168,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
             pModeler.active()
             modeler = pModeler
         }
-        
     }
     
     @IBAction func boxAction(_ sender: UIButton) {
@@ -181,4 +181,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         }
     }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
