@@ -14,6 +14,8 @@ class PolyModeler : Modeler {
     enum InteractionMode {
         case waitingForLocation
         case draggingNewPoint, draggingHeightPoint
+        case draggingTop(dragStart: SCNVector3)
+
     }
     var panGesture: UIPanGestureRecognizer!
     
@@ -68,6 +70,7 @@ class PolyModeler : Modeler {
 //
 //                //                planesShown = false
 //
+                
 //            case .draggingFace(let side, let dragStart):
 //                rotationGesture.isEnabled = true
 //
@@ -95,8 +98,16 @@ class PolyModeler : Modeler {
 //                    hitTestPlane.boundingBox.min = SCNVector3(x: 0, y: -1000, z: -1000)
 //                    hitTestPlane.boundingBox.max = SCNVector3(x: 0, y: 1000, z: 1000)
 //                }
+//            }
+            case .draggingTop(let dragStart):
+                
+                floor.isHidden = false
+                
+                hitTestPlane.isHidden = false
+                hitTestPlane.position = dragStart
+                
+                planesShown = false
             }
-
         }
     }
     
@@ -138,6 +149,18 @@ class PolyModeler : Modeler {
     var closed = false
     
     @objc dynamic func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        
+        switch mode {
+        case .waitingForLocation: break
+
+        case .draggingNewPoint: break
+
+        case .draggingHeightPoint: 
+            AddHeightPoint(gestureRecognizer)
+        case .draggingTop:
+            HandleTopDrag(gestureRecognizer)
+            
+        }
     }
     
     override func handleNewPoint(pos: CGPoint) {
@@ -148,20 +171,24 @@ class PolyModeler : Modeler {
         case .draggingNewPoint:
             AddNewPoint(pos:pos)
         case .draggingHeightPoint: break
+        case .draggingTop:break
         }
     }
     
     override func updateAtTime(pos: CGPoint) {
-        if (mode == .draggingNewPoint) {
-            poly.trackingline.isHidden = false
-            if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
-
-                let delta = locationInWorld - poly.position
-                poly.buildLine(pos: delta)
-            }
-        } else {
+        guard case .draggingNewPoint = mode else {
             poly.trackingline.isHidden = true
+
+            return
         }
+
+        poly.trackingline.isHidden = false
+        if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
+            
+            let delta = locationInWorld - poly.position
+            poly.buildLine(pos: delta)
+        }
+
     }
     
     func findStartingLocation(pos:CGPoint) {
@@ -192,8 +219,44 @@ class PolyModeler : Modeler {
         }
     }
     
-    func AddHeightPoint(pos:CGPoint) {
-        
+    func AddHeightPoint(_ gestureRecognizer: UIPanGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began, .changed:
+            let touchPos = gestureRecognizer.location(in: sceneView)
+            
+            // Test if the user managed to hit a face of the box: if so, transition into dragging that face
+
+            let hitResults = sceneView.hitTest(touchPos, options: [
+                .rootNode: self.poly.topFace!,
+                .firstFoundOnly: true,
+                ])
+            
+            if let result = hitResults.first {
+                let coordinatesInBox = poly.convertPosition(result.localCoordinates, from: result.node)
+                mode = .draggingTop(dragStart: coordinatesInBox)
+                return
+            }
+        default:
+            break
+        }
+    }
+    
+    func HandleTopDrag(_ gestureRecognizer: UIPanGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .changed:
+            let touchPos = gestureRecognizer.location(in: sceneView)
+            if let locationInWorld = sceneView.scenekitHit(at: touchPos, within: hitTestPlane) {
+                let locationInBox = poly.convertPosition(locationInWorld, from: nil)
+                
+                let distanceForAxis = locationInBox.value(for: .y)
+                print(locationInBox)
+                poly.buildTop(y: -distanceForAxis)
+            }
+        case .ended, .cancelled:
+            mode = .draggingHeightPoint
+        default:
+            break
+        }
     }
     
     func findNearest(pos:SCNVector3) -> Bool{

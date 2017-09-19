@@ -28,7 +28,9 @@ class Polygon: SCNNode {
     
     var vertices: [SCNNode] = []
     var lines:  [SCNNode] = []
-    var faces:  [SCNNode] = []
+    var sideFaces:  [SCNNode] = []
+    var bottomFace: SCNNode? = nil
+    var topFace: SCNNode? = nil
     var trackingline: SCNNode = Adorner.makeLine()
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,8 +79,15 @@ class Polygon: SCNNode {
     
     func buildPoly()
     {
-        let poly = Adorner.makePolygon(nodes: vertices)
-        addChildNode(poly)
+        bottomFace = Adorner.makePolygon(nodes: vertices)
+        addChildNode(bottomFace!)
+        
+        topFace = bottomFace?.clone()
+        addChildNode(topFace!)
+    }
+    
+    func buildTop(y: Float) {
+        topFace?.position.y = y
     }
     
     func buildWalls() {
