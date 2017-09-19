@@ -80,15 +80,15 @@
 		9FFE39161EF1DE2500D26EB8 /* Boxify */ = {
 			isa = PBXGroup;
 			children = (
-				9FFE391B1EF1DE2500D26EB8 /* ViewController.swift */,
 				73110D1F1F6E06A900F29531 /* Model.swift */,
-				9F4060C41EF423DE00A14464 /* Box.swift */,
-				73110D1D1F6D2A5600F29531 /* Polygon.swift */,
 				73110D1B1F6D28C000F29531 /* Modeler.swift */,
+				9F4060C41EF423DE00A14464 /* Box.swift */,
 				73DA31961F6D077B0053ACF9 /* BoxModeler.swift */,
+				73110D1D1F6D2A5600F29531 /* Polygon.swift */,
 				73110D191F6D273700F29531 /* PolyModeler.swift */,
-				73DA31941F6CC4E40053ACF9 /* Adoner.swift */,
 				9F622E771EF3097900829A0B /* Utilities.swift */,
+				73DA31941F6CC4E40053ACF9 /* Adoner.swift */,
+				9FFE391B1EF1DE2500D26EB8 /* ViewController.swift */,
 				9F4060C81EF5A48D00A14464 /* SCNNode+Extensions.swift */,
 				9F4060C61EF59C2F00A14464 /* SCNVector3+Extensions.swift */,
 				9F4060CC1EF5B03200A14464 /* SCNVector4+Extensions.swift */,

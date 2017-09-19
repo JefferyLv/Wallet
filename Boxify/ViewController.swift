@@ -42,6 +42,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         modeler = bModeler
         bModeler.active()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        sceneView.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,18 +132,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
     }
     
-    @IBAction func addAction(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
-            self.indicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        }) { (value) in
-            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
-                self.indicator.transform = CGAffineTransform.identity
+    @objc dynamic func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        
+        if !indicator.isHidden {
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
+                self.indicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             }) { (value) in
+                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
+                    self.indicator.transform = CGAffineTransform.identity
+                }) { (value) in
+                }
             }
         }
-//        sender.isSelected = !sender.isSelected;
-
-//        modeler.handleNewPoint(pos: indicator.center)
     }
     
     @IBAction func restartAction(_ sender: UIButton) {
