@@ -137,7 +137,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         if !indicator.isHidden {
             UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
-                self.indicator.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                self.indicator.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
             }) { (value) in
                 UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
                     self.indicator.transform = CGAffineTransform.identity
