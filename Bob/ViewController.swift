@@ -25,6 +25,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     var pModeler : Modeler!
     var modeler  : Modeler!
     
+    var chair : SCNReferenceNode!
+    var cup : SCNReferenceNode!
+    var select : SCNReferenceNode!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -57,8 +57,66 @@ extension ViewController {
     }
 
     @IBAction func chairAction(_ sender: UIButton) {
+        
+        if self.chair == nil {
+            // Load the content asynchronously.
+            DispatchQueue.global(qos: .userInitiated).async {
+
+                guard let url = Bundle.main.url(forResource: "Models.scnassets/vase/vase", withExtension: "scn") else {
+                    fatalError("can't find expected virtual object bundle resources")
+                }
+                
+                self.chair = SCNReferenceNode(url:url)
+                self.chair.load()
+                
+                self.select = self.chair
+            }
+        } else {
+            self.select = self.chair
+        }
     }
     
     @IBAction func cupAction(_ sender: UIButton) {
+        
+        if self.cup == nil {
+            // Load the content asynchronously.
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                guard let url = Bundle.main.url(forResource: "Models.scnassets/paint/blackboard", withExtension: "scn") else {
+                    fatalError("can't find expected virtual object bundle resources")
+                }
+                
+                self.cup = SCNReferenceNode(url:url)
+                self.cup.load()
+                self.select = self.cup
+            }
+        } else {
+            
+            self.select = self.cup
+        }
     }
 }
+
+//                    guard let url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "obj") else {
+//                        fatalError("Failed to find model file.")
+//                    }
+//
+//                    let asset = MDLAsset(URL: NSURL(string: url))
+//                    guard let object = asset.object(at: 0) as? MDLMesh else {
+//                        fatalError("Failed to get mesh from asset.")
+//                    }
+//
+//                    // Create a material from the various textures
+//                    let scatteringFunction = MDLScatteringFunction()
+//                    let material = MDLMaterial(name: "baseMaterial", scatteringFunction: scatteringFunction)
+//
+//                    material.setTextureProperties(textures: [.baseColor: "Models.scnassets/chair/chair.png"])
+//
+//                    // Apply the texture to every submesh of the asset
+//                    for  submesh in object.submeshes!  {
+//                        if let submesh = submesh as? MDLSubmesh {
+//                            submesh.material = material
+//                        }
+//                    }
+//
+//                    let obj = SCNNode(mdlObject: object)

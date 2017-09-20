@@ -27,55 +27,43 @@ extension ViewController {
             
             if let result = hitResults.first {
                 let coordinate = self.modeler.model().convertPosition(result.localCoordinates, from: result.node)
-//                let normal = self.modeler.model().convertVector(result.localNormal, from: result.node)
-
-//                let axis = normal.cross(SCNVector3.axisY).normalized()
-//                let angle = acos(normal.dot(SCNVector3.axisY))
-//                let rotation = SCNVector4(x:axis.x, y:axis.y, z:axis.z, w: -angle)
                 
-                let rotation = result.node.rotation
-        
-                // Load the content asynchronously.
-                DispatchQueue.global(qos: .userInitiated).async {
+                var rotation = SCNVector4Zero
+                if select == chair {
+                    let normal = self.modeler.model().convertVector(result.localNormal, from: result.node)
                     
-                    guard let url = Bundle.main.url(forResource: "Models.scnassets/paint/blackboard", withExtension: "scn") else {
-                        fatalError("can't find expected virtual object bundle resources")
-                    }
-
-                    let obj = SCNReferenceNode(url:url)
-                    obj?.load()
+                    let axis = normal.cross(SCNVector3.axisY).normalized()
+                    let angle = acos(normal.dot(SCNVector3.axisY))
+                    rotation = SCNVector4(x:axis.x, y:axis.y, z:axis.z, w: angle)
+                } else {
+                    rotation = result.node.rotation
                     
-//                    guard let url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "obj") else {
-//                        fatalError("Failed to find model file.")
-//                    }
-//
-//                    let asset = MDLAsset(URL: NSURL(string: url))
-//                    guard let object = asset.object(at: 0) as? MDLMesh else {
-//                        fatalError("Failed to get mesh from asset.")
-//                    }
-//
-//                    // Create a material from the various textures
-//                    let scatteringFunction = MDLScatteringFunction()
-//                    let material = MDLMaterial(name: "baseMaterial", scatteringFunction: scatteringFunction)
-//
-//                    material.setTextureProperties(textures: [.baseColor: "Models.scnassets/chair/chair.png"])
-//
-//                    // Apply the texture to every submesh of the asset
-//                    for  submesh in object.submeshes!  {
-//                        if let submesh = submesh as? MDLSubmesh {
-//                            submesh.material = material
-//                        }
-//                    }
-//
-//                    let obj = SCNNode(mdlObject: object)
-                    
-                    obj?.position = coordinate
-                    obj?.rotation = rotation
-                    
-                    DispatchQueue.main.async {
-                        self.modeler.model().addChildNode(obj!)
-                    }
                 }
+
+                
+                select.position = coordinate
+                select.rotation = rotation
+                self.modeler.model().addChildNode(select)
+                
+                // Load the content asynchronously.
+//                DispatchQueue.global(qos: .userInitiated).async {
+//
+//                    guard let url = Bundle.main.url(forResource: "Models.scnassets/paint/blackboard", withExtension: "scn") else {
+//                        fatalError("can't find expected virtual object bundle resources")
+//                    }
+//
+//                    let obj = SCNReferenceNode(url:url)
+//                    obj?.load()
+//
+//
+//
+//                    obj?.position = coordinate
+//                    obj?.rotation = rotation
+//
+//                    DispatchQueue.main.async {
+//                        self.modeler.model().addChildNode(obj!)
+//                    }
+//                }
                 break
             }
         }
