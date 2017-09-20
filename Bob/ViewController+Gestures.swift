@@ -30,8 +30,9 @@ extension ViewController {
                 
                 var rotation = SCNVector4Zero
                 if select == chair {
-                    let normal = self.modeler.model().convertVector(result.localNormal, from: result.node)
+                    var normal = self.modeler.model().convertVector(result.localNormal, from: result.node)
                     
+                    normal *= -1
                     let axis = normal.cross(SCNVector3.axisY).normalized()
                     let angle = acos(normal.dot(SCNVector3.axisY))
                     rotation = SCNVector4(x:axis.x, y:axis.y, z:axis.z, w: angle)

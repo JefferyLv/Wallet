@@ -62,7 +62,7 @@ extension ViewController {
             // Load the content asynchronously.
             DispatchQueue.global(qos: .userInitiated).async {
 
-                guard let url = Bundle.main.url(forResource: "Models.scnassets/vase/vase", withExtension: "scn") else {
+                guard let url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn") else {
                     fatalError("can't find expected virtual object bundle resources")
                 }
                 
