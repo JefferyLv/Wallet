@@ -56,5 +56,9 @@ extension ViewController {
         }
     }
 
+    @IBAction func chairAction(_ sender: UIButton) {
+    }
     
+    @IBAction func cupAction(_ sender: UIButton) {
+    }
 }
