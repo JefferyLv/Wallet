@@ -28,6 +28,8 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.shared.isIdleTimerDisabled = true
+        
         // Set the view's delegate
         sceneView.delegate = self
         
