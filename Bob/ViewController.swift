@@ -14,6 +14,8 @@ struct RenderingCategory: OptionSet {
 
 class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate {
     
+    var showDebugVisuals: Bool = false
+    
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var indicator: UILabel!
     @IBOutlet var boxButton: UIButton!
@@ -157,6 +159,15 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         
         // Run the view's session
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
+    @IBAction func infoAction(_ sender: UIButton) {
+        showDebugVisuals = !showDebugVisuals
+        if showDebugVisuals {
+            sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        }else{
+            sceneView.debugOptions = []
+        }
     }
     
     @IBAction func polyAction(_ sender: UIButton) {
