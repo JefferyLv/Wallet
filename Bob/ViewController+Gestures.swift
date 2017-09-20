@@ -27,16 +27,18 @@ extension ViewController {
             
             if let result = hitResults.first {
                 let coordinate = self.modeler.model().convertPosition(result.localCoordinates, from: result.node)
-                let normal = self.modeler.model().convertVector(result.localNormal, from: result.node)
+//                let normal = self.modeler.model().convertVector(result.localNormal, from: result.node)
 
-                let axis = normal.cross(SCNVector3.axisY).normalized()
-                let angle = acos(normal.dot(SCNVector3.axisY))
-                let rotation = SCNVector4(x:axis.x, y:axis.y, z:axis.z, w: -angle)
+//                let axis = normal.cross(SCNVector3.axisY).normalized()
+//                let angle = acos(normal.dot(SCNVector3.axisY))
+//                let rotation = SCNVector4(x:axis.x, y:axis.y, z:axis.z, w: -angle)
+                
+                let rotation = result.node.rotation
         
                 // Load the content asynchronously.
                 DispatchQueue.global(qos: .userInitiated).async {
                     
-                    guard let url = Bundle.main.url(forResource: "Models.scnassets/vase/vase", withExtension: "scn") else {
+                    guard let url = Bundle.main.url(forResource: "Models.scnassets/paint/blackboard", withExtension: "scn") else {
                         fatalError("can't find expected virtual object bundle resources")
                     }
 
