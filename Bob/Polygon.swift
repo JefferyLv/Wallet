@@ -81,6 +81,17 @@ class Polygon: SCNNode {
         Adorner.updateLine(trackingline, from: (vertices.last?.position)!, to: pos)
     }
     
+    func closeLine() {
+        let startPos = vertices.first?.position
+        let endPos = vertices.last?.position
+        
+        let line = Adorner.makeLine()
+        Adorner.updateLine(line, from: startPos!, to: endPos!)
+        addChildNode(line)
+        
+        lines.append(line)
+    }
+    
     func buildFace()
     {
         bottomFace = Adorner.makePolygon(nodes: vertices)

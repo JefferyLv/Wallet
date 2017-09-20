@@ -183,7 +183,7 @@ class PolyModeler : Modeler {
             let closed = findNearest(pos: delta)
 
             if (closed) {
-                poly.addVertex(at: SCNVector3Zero)
+                poly.closeLine()
                 
                 poly.buildFace()
                 
