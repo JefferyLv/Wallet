@@ -56,6 +56,10 @@ class Modeler : Equatable {
         setup()
     }
     
+    func face() -> [SCNNode] {
+        return []
+    }
+    
     func active() {
     }
     func deactive() {

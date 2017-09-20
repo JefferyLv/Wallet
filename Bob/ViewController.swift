@@ -50,6 +50,10 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         tapGesture.delegate = self
         sceneView.addGestureRecognizer(tapGesture)
+        
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        sceneView.addGestureRecognizer(doubleTapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -135,66 +139,5 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
-    }
-    
-    @objc dynamic func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        
-        if !indicator.isHidden {
-            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
-                self.indicator.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
-            }) { (value) in
-                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
-                    self.indicator.transform = CGAffineTransform.identity
-                }) { (value) in
-                }
-            }
-        }
-    }
-    
-    @IBAction func restartAction(_ sender: UIButton) {
-        
-        modeler.cleanup()
-
-        // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
-        
-        // Run the view's session
-        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-    }
-    
-    @IBAction func infoAction(_ sender: UIButton) {
-        showDebugVisuals = !showDebugVisuals
-        if showDebugVisuals {
-            sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-        }else{
-            sceneView.debugOptions = []
-        }
-    }
-    
-    @IBAction func polyAction(_ sender: UIButton) {
-        polyButton.isSelected = true
-        boxButton.isSelected = false
-        
-        if modeler == bModeler {
-            bModeler.deactive()
-            pModeler.active()
-            modeler = pModeler
-        }
-    }
-    
-    @IBAction func boxAction(_ sender: UIButton) {
-        boxButton.isSelected = true
-        polyButton.isSelected = false
-        
-        if modeler == pModeler {
-            pModeler.deactive()
-            bModeler.active()
-            modeler = bModeler
-        }
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }

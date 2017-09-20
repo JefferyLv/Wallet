@@ -263,4 +263,8 @@ class PolyModeler : Modeler {
         
         cleanup()
     }
+    
+    override func face() -> [SCNNode] {
+        return poly.sideFaces
+    }
 }
