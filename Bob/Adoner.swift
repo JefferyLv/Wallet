@@ -105,6 +105,7 @@ class Adorner {
 //        node.name = side.rawValue
         node.geometry?.firstMaterial?.transparency = 0.1
         node.geometry?.firstMaterial?.writesToDepthBuffer = false
+        node.geometry?.firstMaterial?.isDoubleSided = true
         node.orientation = orientation
         
         return node
@@ -130,6 +131,7 @@ class Adorner {
         poly.firstMaterial?.lightingModel = .constant
         poly.firstMaterial?.diffuse.contents = UIColor.white
         poly.firstMaterial?.transparency = 0.2
+        poly.firstMaterial?.isDoubleSided = true
         
         return SCNNode(geometry: poly)
     }
