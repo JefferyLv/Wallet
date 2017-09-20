@@ -11,6 +11,7 @@
 		73110D1C1F6D28C000F29531 /* Modeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D1B1F6D28C000F29531 /* Modeler.swift */; };
 		73110D1E1F6D2A5600F29531 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D1D1F6D2A5600F29531 /* Polygon.swift */; };
 		73110D201F6E06A900F29531 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73110D1F1F6E06A900F29531 /* Model.swift */; };
+		73203BA81F723E7200DB24DB /* Models.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 73203BA71F723E7200DB24DB /* Models.scnassets */; };
 		73DA31931F6BFBE20053ACF9 /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31921F6BFBE20053ACF9 /* ARSCNView+Extensions.swift */; };
 		73DA31951F6CC4E40053ACF9 /* Adoner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31941F6CC4E40053ACF9 /* Adoner.swift */; };
 		73DA31971F6D077B0053ACF9 /* BoxModeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31961F6D077B0053ACF9 /* BoxModeler.swift */; };
@@ -32,6 +33,7 @@
 		73110D1B1F6D28C000F29531 /* Modeler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modeler.swift; sourceTree = "<group>"; };
 		73110D1D1F6D2A5600F29531 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		73110D1F1F6E06A900F29531 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		73203BA71F723E7200DB24DB /* Models.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Models.scnassets; sourceTree = "<group>"; };
 		73DA31921F6BFBE20053ACF9 /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		73DA31941F6CC4E40053ACF9 /* Adoner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adoner.swift; sourceTree = "<group>"; };
 		73DA31961F6D077B0053ACF9 /* BoxModeler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxModeler.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				9FFE391D1EF1DE2500D26EB8 /* Main.storyboard */,
 				9FFE39221EF1DE2500D26EB8 /* LaunchScreen.storyboard */,
 				9FFE39201EF1DE2500D26EB8 /* Assets.xcassets */,
+				73203BA71F723E7200DB24DB /* Models.scnassets */,
 				9FFE39251EF1DE2500D26EB8 /* Info.plist */,
 			);
 			path = Bob;
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FFE39241EF1DE2500D26EB8 /* LaunchScreen.storyboard in Resources */,
+				73203BA81F723E7200DB24DB /* Models.scnassets in Resources */,
 				9FFE39211EF1DE2500D26EB8 /* Assets.xcassets in Resources */,
 				9FFE391F1EF1DE2500D26EB8 /* Main.storyboard in Resources */,
 			);
