@@ -17,6 +17,19 @@ extension MDLMaterial {
     }
 }
 
+extension UIView {
+    func heartbeat() {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
+            self.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
+        }) { (value) in
+            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
+                self.transform = CGAffineTransform.identity
+            }) { (value) in
+            }
+        }
+    }
+}
+
 // - MARK: UIImage extensions
 
 extension UIImage {

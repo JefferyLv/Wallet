@@ -73,17 +73,9 @@ extension ViewController {
     @objc dynamic func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         
         if !indicator.isHidden {
-            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseOut], animations: {
-                self.indicator.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
-            }) { (value) in
-                UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.allowUserInteraction,.curveEaseIn], animations: {
-                    self.indicator.transform = CGAffineTransform.identity
-                }) { (value) in
-                }
-            }
+            indicator.heartbeat()
         }
-        
-        
+
     }
     
     

@@ -14,6 +14,7 @@ extension ViewController {
     
     
     @IBAction func restartAction(_ sender: UIButton) {
+        sender.heartbeat()
         
         modeler.cleanup()
         
@@ -26,6 +27,8 @@ extension ViewController {
     }
     
     @IBAction func infoAction(_ sender: UIButton) {
+        sender.heartbeat()
+        
         showDebugVisuals = !showDebugVisuals
         if showDebugVisuals {
             sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
@@ -35,6 +38,7 @@ extension ViewController {
     }
     
     @IBAction func polyAction(_ sender: UIButton) {
+        sender.heartbeat()
         polyButton.isSelected = true
         boxButton.isSelected = false
         
@@ -46,6 +50,7 @@ extension ViewController {
     }
     
     @IBAction func boxAction(_ sender: UIButton) {
+        sender.heartbeat()
         boxButton.isSelected = true
         polyButton.isSelected = false
         
@@ -55,13 +60,14 @@ extension ViewController {
             modeler = bModeler
         }
     }
-
+    
     @IBAction func chairAction(_ sender: UIButton) {
+        sender.heartbeat()
         
         if self.chair == nil {
             // Load the content asynchronously.
             DispatchQueue.global(qos: .userInitiated).async {
-
+                
                 guard let url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn") else {
                     fatalError("can't find expected virtual object bundle resources")
                 }
@@ -77,6 +83,7 @@ extension ViewController {
     }
     
     @IBAction func cupAction(_ sender: UIButton) {
+        sender.heartbeat()
         
         if self.cup == nil {
             // Load the content asynchronously.
