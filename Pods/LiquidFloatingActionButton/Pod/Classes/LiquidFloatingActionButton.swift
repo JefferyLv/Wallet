@@ -165,7 +165,7 @@ open class LiquidFloatingActionButton : UIView {
         self.circleLayer.cornerRadius = self.frame.width * 0.5
         self.circleLayer.masksToBounds = true
         if touching && responsible {
-            self.circleLayer.backgroundColor = self.color.white(0.5).cgColor
+            self.circleLayer.backgroundColor = self.color.White(0.5).cgColor
         } else {
             self.circleLayer.backgroundColor = self.color.cgColor
         }
@@ -511,7 +511,7 @@ open class LiquidFloatingCell : LiquittableCircle {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if responsible {
             originalColor = color
-            color = originalColor.white(0.5)
+            color = originalColor.White(0.5)
             setNeedsDisplay()
         }
     }
