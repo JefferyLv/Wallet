@@ -6,13 +6,18 @@ import UIKit
 import ARKit
 import SceneKit
 
+import LiquidFloatingActionButton
+
 struct RenderingCategory: OptionSet {
     let rawValue: Int
     static let reflected = RenderingCategory(rawValue: 1 << 1)
     static let planes = RenderingCategory(rawValue: 1 << 2)
 }
 
-class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDelegate  {
+
+    var cells: [LiquidFloatingCell] = []
+    var floatingActionButton: LiquidFloatingActionButton!
     
     var showDebugVisuals: Bool = false
     
@@ -58,6 +63,18 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTapGesture.numberOfTapsRequired = 2
         sceneView.addGestureRecognizer(doubleTapGesture)
+        
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "rectangle")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "polygon")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "cup")!))
+        
+        let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
+        let floatingActionButton = LiquidFloatingActionButton(frame: floatingFrame)
+        floatingActionButton.dataSource = self
+        floatingActionButton.delegate = self
+        floatingActionButton.animateStyle = .right
+        self.view.addSubview(floatingActionButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -144,4 +161,5 @@ class ViewController: UIViewController, ARSCNViewDelegate, UIGestureRecognizerDe
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+  
 }

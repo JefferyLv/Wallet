@@ -10,8 +10,12 @@ import UIKit
 import ARKit
 import SceneKit
 
-extension ViewController {
+import LiquidFloatingActionButton
+
+extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingActionButtonDelegate {
     
+//    var cells: [LiquidFloatingCell] = []
+//    var floatingActionButton: LiquidFloatingActionButton!
     
     @IBAction func restartAction(_ sender: UIButton) {
         sender.heartbeat()
@@ -101,6 +105,19 @@ extension ViewController {
             
             self.select = self.cup
         }
+    }
+    
+    func numberOfCells(_ liquidFloatingActionButton: LiquidFloatingActionButton) -> Int {
+        return cells.count
+    }
+    
+    func cellForIndex(_ index: Int) -> LiquidFloatingCell {
+        return cells[index]
+    }
+    
+    func liquidFloatingActionButton(_ liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
+        print("did Tapped! \(index)")
+        liquidFloatingActionButton.close()
     }
 }
 
