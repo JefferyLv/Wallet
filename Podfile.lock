@@ -1,0 +1,12 @@
+PODS:
+  - LiquidFloatingActionButton (1.2.0)
+
+DEPENDENCIES:
+  - LiquidFloatingActionButton
+
+SPEC CHECKSUMS:
+  LiquidFloatingActionButton: 9c28961915754e08cf596ea6bdd60f9cd949f172
+
+PODFILE CHECKSUM: 0bbd8eea718946a26b5029970f3cd30be9b47b89
+
+COCOAPODS: 1.2.0
