@@ -15,8 +15,18 @@ class PolyModeler : Modeler {
         case waitingForLocation
         case draggingNewPoint, draggingHeightPoint
         case draggingTop(dragStart: SCNVector3)
-
+        
     }
+    
+    enum InteractionState {
+        case findCorner
+        case addCorner
+        case findBase
+        case updateRoof
+        case updateWall
+    }
+    
+    
     var panGesture: UIPanGestureRecognizer!
     var tapGesture: UITapGestureRecognizer!
     
@@ -33,7 +43,7 @@ class PolyModeler : Modeler {
         didSet {
             switch mode {
             case .waitingForLocation:
-//                rotationGesture.isEnabled = false
+                //                rotationGesture.isEnabled = false
                 
                 poly.isHidden = true
                 poly.clearHighlight()
@@ -45,7 +55,7 @@ class PolyModeler : Modeler {
                 indicatorShown = true
                 
             case .draggingNewPoint:
-//                rotationGesture.isEnabled = true
+                //                rotationGesture.isEnabled = true
                 
                 poly.isHidden = false
                 poly.clearHighlight()
@@ -68,7 +78,7 @@ class PolyModeler : Modeler {
                 
                 planesShown = false
                 indicatorShown = false
-
+                
             case .draggingTop(let dragStart):
                 
                 floor.isHidden = false
@@ -87,7 +97,7 @@ class PolyModeler : Modeler {
         }
     }
     
-//    var currentAnchor: ARAnchor?
+    //    var currentAnchor: ARAnchor?
     
     override func setup() {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
@@ -122,7 +132,7 @@ class PolyModeler : Modeler {
         
         mode = .waitingForLocation
     }
- 
+    
     var closed = false
     
     @objc dynamic func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -153,17 +163,17 @@ class PolyModeler : Modeler {
     override func updateAtTime(pos: CGPoint) {
         guard case .draggingNewPoint = mode else {
             poly.trackingline.isHidden = true
-
+            
             return
         }
-
+        
         poly.trackingline.isHidden = false
         if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
             
             let delta = locationInWorld - poly.position
             poly.buildLine(pos: delta)
         }
-
+        
     }
     
     func findStartingLocation(pos:CGPoint) {
@@ -181,7 +191,7 @@ class PolyModeler : Modeler {
         if let locationInWorld = sceneView.scenekitHit(at: pos, within: hitTestPlane) {
             let delta = locationInWorld - poly.position
             let closed = findNearest(pos: delta)
-
+            
             if (closed) {
                 poly.closeLine()
                 
@@ -200,7 +210,7 @@ class PolyModeler : Modeler {
             let touchPos = gestureRecognizer.location(in: sceneView)
             
             // Test if the user managed to hit a face of the box: if so, transition into dragging that face
-
+            
             let hitResults = sceneView.hitTest(touchPos, options: [
                 .rootNode: self.poly.topFace!,
                 .firstFoundOnly: true,
@@ -235,10 +245,10 @@ class PolyModeler : Modeler {
     
     func findNearest(pos:SCNVector3) -> Bool{
         for ver in poly.vertices {
-
+            
             let dis = ver.position - pos
             if (dis.length < 0.05) {
-
+                
                 return true
             }
         }
@@ -248,18 +258,14 @@ class PolyModeler : Modeler {
     override func active() {
         sceneView.addGestureRecognizer(panGesture)
         sceneView.addGestureRecognizer(tapGesture)
-//        sceneView.addGestureRecognizer(doubleTapGesture)
-//        sceneView.addGestureRecognizer(rotationGesture)
         
-       sceneView.scene.rootNode.addChildNode(poly)
-                mode = .waitingForLocation
+        sceneView.scene.rootNode.addChildNode(poly)
+        mode = .waitingForLocation
     }
     
     override func deactive() {
         sceneView.removeGestureRecognizer(panGesture)
         sceneView.removeGestureRecognizer(tapGesture)
-//        sceneView.removeGestureRecognizer(doubleTapGesture)
-//        sceneView.removeGestureRecognizer(rotationGesture)
         
         cleanup()
     }
