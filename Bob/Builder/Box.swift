@@ -170,7 +170,7 @@ class Box: SCNNode {
         node.name = side.rawValue
         node.geometry?.firstMaterial?.transparency = 0.1
         node.geometry?.firstMaterial?.writesToDepthBuffer = false
-        node.geometry?.firstMaterial?.isDoubleSided = true
+        node.geometry?.firstMaterial?.isDoubleSided = false
         
         // Rotate each face to the appropriate facing
         switch side {
