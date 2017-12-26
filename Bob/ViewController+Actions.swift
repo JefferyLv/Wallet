@@ -14,8 +14,20 @@ import LiquidFloatingActionButton
 
 extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingActionButtonDelegate {
     
-//    var cells: [LiquidFloatingCell] = []
-//    var floatingActionButton: LiquidFloatingActionButton!
+    func UISetup() {
+        
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "rectangle")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "polygon")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "cup")!))
+        
+        let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
+        let floatingActionButton = LiquidFloatingActionButton(frame: floatingFrame)
+        floatingActionButton.dataSource = self
+        floatingActionButton.delegate = self
+        floatingActionButton.animateStyle = .right
+        self.view.addSubview(floatingActionButton)
+    }
     
     @IBAction func restartAction(_ sender: UIButton) {
         sender.heartbeat()

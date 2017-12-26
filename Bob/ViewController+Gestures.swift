@@ -10,7 +10,17 @@ import UIKit
 import SceneKit
 import SceneKit.ModelIO
 
-extension ViewController {
+extension ViewController : UIGestureRecognizerDelegate {
+    
+    func GesturesSetup() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.delegate = self
+        sceneView.addGestureRecognizer(tapGesture)
+        
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTapGesture.numberOfTapsRequired = 2
+        sceneView.addGestureRecognizer(doubleTapGesture)
+    }
 
     @objc dynamic func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
 
