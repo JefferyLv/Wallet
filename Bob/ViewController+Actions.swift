@@ -139,8 +139,10 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     }
     
     func brainAction() {
-        self.brain.startCoreMLUpdate()
+        if (self.brain.isCoreMLRunning()) {
+            self.brain.endCoreMLRunning()
+        } else {
+            self.brain.startCoreMLRunning()
+        }
     }
-    
-
 }

@@ -33,24 +33,31 @@ class Brain {
         visionRequests = [classificationRequest]  
     }
     
-    func startCoreMLUpdate() {
+    func loopCoreMLUpdate() {
+
         // Continuously run CoreML whenever it's ready. (Preventing 'hiccups' in Frame Rate)
-        self.inDetection = true
-        
         dispatchQueueML.async {
             // 1. Run Update.
             self.updateCoreML()
             
             // 2. Loop this function.
             if (self.inDetection) {
-                self.startCoreMLUpdate()
+                self.loopCoreMLUpdate()
             }
         }
-        
     }
     
-    func endCoreMLUpdate() {
+    func startCoreMLRunning() {
+        self.inDetection = true
+        self.loopCoreMLUpdate()
+    }
+    
+    func endCoreMLRunning() {
         self.inDetection = false
+    }
+    
+    func isCoreMLRunning() -> Bool {
+        return self.inDetection
     }
     
     func updateCoreML() {
