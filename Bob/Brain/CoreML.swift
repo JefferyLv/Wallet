@@ -11,16 +11,14 @@ import Vision
 
 class Brain {
     
-    @IBOutlet var sceneView: ARSCNView!
-    
-    let bubbleDepth : Float = 0.01 // the 'depth' of 3D text
-    var latestPrediction : String = "…" // a variable containing the latest CoreML prediction
-    
+    var sceneView: ARSCNView!
+
     var visionRequests = [VNRequest]()
     let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
     
-    func setup() {
+    init (scene: ARSCNView) {
         
+        sceneView = scene
         
         // Set up Vision Model
         guard let selectedModel = try? VNCoreMLModel(for:  Inceptionv3().model) else {
@@ -31,11 +29,7 @@ class Brain {
         // Set up Vision-CoreML Request
         let classificationRequest = VNCoreMLRequest(model: selectedModel, completionHandler: classificationCompleteHandler)
         classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop // Crop from centre of images and scale to appropriate size.
-        visionRequests = [classificationRequest]
-
-        // Begin Loop to Update CoreML
-        loopCoreMLUpdate()
-        
+        visionRequests = [classificationRequest]  
     }
     
     func loopCoreMLUpdate() {

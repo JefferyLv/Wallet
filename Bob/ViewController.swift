@@ -27,13 +27,17 @@ class ViewController: UIViewController {
     var cup : SCNReferenceNode!
     var select : SCNReferenceNode!
     
+    var brain: Brain!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UISetup()
         ARSetup()
         GesturesSetup()
-    
+        
+        MLSetup()
+        
         UIApplication.shared.isIdleTimerDisabled = true
     }
     
