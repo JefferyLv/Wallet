@@ -12,6 +12,7 @@ import Vision
 class Brain {
     
     var sceneView: ARSCNView!
+    var inDetection = false
 
     var visionRequests = [VNRequest]()
     let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
@@ -32,17 +33,24 @@ class Brain {
         visionRequests = [classificationRequest]  
     }
     
-    func loopCoreMLUpdate() {
+    func startCoreMLUpdate() {
         // Continuously run CoreML whenever it's ready. (Preventing 'hiccups' in Frame Rate)
+        self.inDetection = true
         
         dispatchQueueML.async {
             // 1. Run Update.
             self.updateCoreML()
             
             // 2. Loop this function.
-            self.loopCoreMLUpdate()
+            if (self.inDetection) {
+                self.startCoreMLUpdate()
+            }
         }
         
+    }
+    
+    func endCoreMLUpdate() {
+        self.inDetection = false
     }
     
     func updateCoreML() {

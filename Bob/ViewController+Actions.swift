@@ -20,6 +20,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         cells.append(LiquidFloatingCell(icon: UIImage(named: "polygon")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "cup")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "brain")!))
         
         let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
         let floatingActionButton = LiquidFloatingActionButton(frame: floatingFrame)
@@ -27,6 +28,34 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         floatingActionButton.delegate = self
         floatingActionButton.animateStyle = .right
         self.view.addSubview(floatingActionButton)
+    }
+    
+    func numberOfCells(_ liquidFloatingActionButton: LiquidFloatingActionButton) -> Int {
+        return cells.count
+    }
+    
+    func cellForIndex(_ index: Int) -> LiquidFloatingCell {
+        return cells[index]
+    }
+    
+    func liquidFloatingActionButton(_ liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
+        liquidFloatingActionButton.heartbeat()
+        
+        switch index {
+        case 0:
+            boxAction()
+        case 1:
+            polyAction()
+        case 2:
+            chairAction()
+        case 3:
+            cupAction()
+        case 4:
+            brainAction()
+        default:
+            break
+        }
+        liquidFloatingActionButton.close()
     }
     
     @IBAction func restartAction(_ sender: UIButton) {
@@ -53,11 +82,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
     }
     
-    @IBAction func polyAction(_ sender: UIButton) {
-        sender.heartbeat()
-        polyButton.isSelected = true
-        boxButton.isSelected = false
-        
+    func polyAction() {
         if modeler == bModeler {
             bModeler.deactive()
             pModeler.active()
@@ -65,11 +90,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
     }
     
-    @IBAction func boxAction(_ sender: UIButton) {
-        sender.heartbeat()
-        boxButton.isSelected = true
-        polyButton.isSelected = false
-        
+    func boxAction() {   
         if modeler == pModeler {
             pModeler.deactive()
             bModeler.active()
@@ -77,8 +98,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
     }
     
-    @IBAction func chairAction(_ sender: UIButton) {
-        sender.heartbeat()
+    func chairAction() {
         
         if self.chair == nil {
             // Load the content asynchronously.
@@ -98,8 +118,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
     }
     
-    @IBAction func cupAction(_ sender: UIButton) {
-        sender.heartbeat()
+    func cupAction() {
         
         if self.cup == nil {
             // Load the content asynchronously.
@@ -119,40 +138,9 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
     }
     
-    func numberOfCells(_ liquidFloatingActionButton: LiquidFloatingActionButton) -> Int {
-        return cells.count
+    func brainAction() {
+        self.brain.startCoreMLUpdate()
     }
     
-    func cellForIndex(_ index: Int) -> LiquidFloatingCell {
-        return cells[index]
-    }
-    
-    func liquidFloatingActionButton(_ liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
-        print("did Tapped! \(index)")
-        liquidFloatingActionButton.close()
-    }
-}
 
-//                    guard let url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "obj") else {
-//                        fatalError("Failed to find model file.")
-//                    }
-//
-//                    let asset = MDLAsset(URL: NSURL(string: url))
-//                    guard let object = asset.object(at: 0) as? MDLMesh else {
-//                        fatalError("Failed to get mesh from asset.")
-//                    }
-//
-//                    // Create a material from the various textures
-//                    let scatteringFunction = MDLScatteringFunction()
-//                    let material = MDLMaterial(name: "baseMaterial", scatteringFunction: scatteringFunction)
-//
-//                    material.setTextureProperties(textures: [.baseColor: "Models.scnassets/chair/chair.png"])
-//
-//                    // Apply the texture to every submesh of the asset
-//                    for  submesh in object.submeshes!  {
-//                        if let submesh = submesh as? MDLSubmesh {
-//                            submesh.material = material
-//                        }
-//                    }
-//
-//                    let obj = SCNNode(mdlObject: object)
+}
