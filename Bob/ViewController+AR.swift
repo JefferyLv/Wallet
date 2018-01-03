@@ -84,8 +84,7 @@ extension ViewController: ARSCNViewDelegate {
             self.modeler.updateAtTime(pos: self.indicator.center)
         }
         
-        self.nose.smell()
-        self.eye.look()
+        self.brain.run(target: self.modeler)
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

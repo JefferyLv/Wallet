@@ -25,8 +25,7 @@ class ViewController: UIViewController {
     var cup     : SCNReferenceNode!
     var select  : SCNReferenceNode!
     
-    var nose: Nose!
-    var eye : Eye!
+    var brain: Brain!
     
     override func viewDidLoad() {
         super.viewDidLoad()

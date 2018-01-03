@@ -21,6 +21,7 @@
 		73A592EA1FF2222E00BB451D /* ViewController+AR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A592E91FF2222E00BB451D /* ViewController+AR.swift */; };
 		73A592EC1FF227B100BB451D /* ViewController+ML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A592EB1FF227B100BB451D /* ViewController+ML.swift */; };
 		73A593101FFB8C7900BB451D /* Eye.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A5930F1FFB8C7900BB451D /* Eye.swift */; };
+		73A593131FFCA69C00BB451D /* Brain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A593121FFCA69C00BB451D /* Brain.swift */; };
 		73DA31931F6BFBE20053ACF9 /* ARSCNView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31921F6BFBE20053ACF9 /* ARSCNView+Extensions.swift */; };
 		73DA31951F6CC4E40053ACF9 /* Adoner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31941F6CC4E40053ACF9 /* Adoner.swift */; };
 		73DA31971F6D077B0053ACF9 /* BoxModeler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA31961F6D077B0053ACF9 /* BoxModeler.swift */; };
@@ -52,6 +53,7 @@
 		73A592E91FF2222E00BB451D /* ViewController+AR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AR.swift"; sourceTree = "<group>"; };
 		73A592EB1FF227B100BB451D /* ViewController+ML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ML.swift"; sourceTree = "<group>"; };
 		73A5930F1FFB8C7900BB451D /* Eye.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Eye.swift; sourceTree = "<group>"; };
+		73A593121FFCA69C00BB451D /* Brain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brain.swift; sourceTree = "<group>"; };
 		73DA31921F6BFBE20053ACF9 /* ARSCNView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+Extensions.swift"; sourceTree = "<group>"; };
 		73DA31941F6CC4E40053ACF9 /* Adoner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Adoner.swift; sourceTree = "<group>"; };
 		73DA31961F6D077B0053ACF9 /* BoxModeler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxModeler.swift; sourceTree = "<group>"; };
@@ -106,9 +108,9 @@
 		73793A801FEB653700549119 /* Builder */ = {
 			isa = PBXGroup;
 			children = (
-				73110D1F1F6E06A900F29531 /* Model.swift */,
 				9F4060C41EF423DE00A14464 /* Box.swift */,
 				73110D1D1F6D2A5600F29531 /* Polygon.swift */,
+				73110D1F1F6E06A900F29531 /* Model.swift */,
 				73110D1B1F6D28C000F29531 /* Modeler.swift */,
 				73DA31961F6D077B0053ACF9 /* BoxModeler.swift */,
 				73110D191F6D273700F29531 /* PolyModeler.swift */,
@@ -124,6 +126,7 @@
 				73A592B11FF1F1DF00BB451D /* Inceptionv3.mlmodel */,
 				73793A831FEB67C200549119 /* Nose.swift */,
 				73A5930F1FFB8C7900BB451D /* Eye.swift */,
+				73A593121FFCA69C00BB451D /* Brain.swift */,
 			);
 			path = Brain;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				73203BAC1F7259A700DB24DB /* ViewController+Actions.swift in Sources */,
 				9FFE391C1EF1DE2500D26EB8 /* ViewController.swift in Sources */,
 				73A592EC1FF227B100BB451D /* ViewController+ML.swift in Sources */,
+				73A593131FFCA69C00BB451D /* Brain.swift in Sources */,
 				9FFE39181EF1DE2500D26EB8 /* AppDelegate.swift in Sources */,
 				73110D1A1F6D273700F29531 /* PolyModeler.swift in Sources */,
 				73DA31971F6D077B0053ACF9 /* BoxModeler.swift in Sources */,

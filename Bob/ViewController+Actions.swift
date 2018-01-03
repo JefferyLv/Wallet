@@ -139,6 +139,10 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     }
     
     func brainAction() {
-        self.nose.inDetection = !self.nose.inDetection
+        if self.brain.isAwake() {
+            self.brain.sleep()
+        } else {
+            self.brain.wakeUp()
+        }
     }
 }
