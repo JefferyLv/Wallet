@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Bob.xcodeproj">
+      location = "group:/Users/lvwei/Projects/EXperimental/Boxify-master/WALLE.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

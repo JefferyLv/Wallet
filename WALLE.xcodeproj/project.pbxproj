@@ -35,7 +35,6 @@
 		9FFE391C1EF1DE2500D26EB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFE391B1EF1DE2500D26EB8 /* ViewController.swift */; };
 		9FFE391F1EF1DE2500D26EB8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE391D1EF1DE2500D26EB8 /* Main.storyboard */; };
 		9FFE39211EF1DE2500D26EB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE39201EF1DE2500D26EB8 /* Assets.xcassets */; };
-		9FFE39241EF1DE2500D26EB8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE39221EF1DE2500D26EB8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,12 +62,11 @@
 		9F4060CA1EF5A55600A14464 /* SCNMatrix4+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNMatrix4+Extensions.swift"; sourceTree = "<group>"; };
 		9F4060CC1EF5B03200A14464 /* SCNVector4+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector4+Extensions.swift"; sourceTree = "<group>"; };
 		9F622E771EF3097900829A0B /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		9FFE39141EF1DE2500D26EB8 /* Bob.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bob.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FFE39141EF1DE2500D26EB8 /* WALLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WALLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFE39171EF1DE2500D26EB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FFE391B1EF1DE2500D26EB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9FFE391E1EF1DE2500D26EB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9FFE39201EF1DE2500D26EB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9FFE39231EF1DE2500D26EB8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FFE39251EF1DE2500D26EB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACC9ECE3656962F9B945718D /* Pods-Bob.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bob.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bob/Pods-Bob.release.xcconfig"; sourceTree = "<group>"; };
 		B8ACACF90DCEA3D38B75A47D /* Pods_Bob.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bob.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,10 +109,9 @@
 				9F4060C41EF423DE00A14464 /* Box.swift */,
 				73110D1D1F6D2A5600F29531 /* Polygon.swift */,
 				73110D1F1F6E06A900F29531 /* Model.swift */,
-				73110D1B1F6D28C000F29531 /* Modeler.swift */,
 				73DA31961F6D077B0053ACF9 /* BoxModeler.swift */,
 				73110D191F6D273700F29531 /* PolyModeler.swift */,
-				9F622E771EF3097900829A0B /* Utilities.swift */,
+				73110D1B1F6D28C000F29531 /* Modeler.swift */,
 				73DA31941F6CC4E40053ACF9 /* Adoner.swift */,
 			);
 			path = Builder;
@@ -123,10 +120,9 @@
 		73793A821FEB658200549119 /* Brain */ = {
 			isa = PBXGroup;
 			children = (
-				73A592B11FF1F1DF00BB451D /* Inceptionv3.mlmodel */,
+				73A593121FFCA69C00BB451D /* Brain.swift */,
 				73793A831FEB67C200549119 /* Nose.swift */,
 				73A5930F1FFB8C7900BB451D /* Eye.swift */,
-				73A593121FFCA69C00BB451D /* Brain.swift */,
 			);
 			path = Brain;
 			sourceTree = "<group>";
@@ -134,6 +130,7 @@
 		73A592B01FF1EEA500BB451D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				9F622E771EF3097900829A0B /* Utilities.swift */,
 				9F4060C81EF5A48D00A14464 /* SCNNode+Extensions.swift */,
 				9F4060C61EF59C2F00A14464 /* SCNVector3+Extensions.swift */,
 				9F4060CC1EF5B03200A14464 /* SCNVector4+Extensions.swift */,
@@ -146,7 +143,7 @@
 		9FFE390B1EF1DE2500D26EB8 = {
 			isa = PBXGroup;
 			children = (
-				9FFE39161EF1DE2500D26EB8 /* Bob */,
+				9FFE39161EF1DE2500D26EB8 /* WALLE */,
 				9FFE39151EF1DE2500D26EB8 /* Products */,
 				73203BAD1F7285E900DB24DB /* Frameworks */,
 				3A2229FD775DA6EDB56C9D39 /* Pods */,
@@ -156,12 +153,12 @@
 		9FFE39151EF1DE2500D26EB8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9FFE39141EF1DE2500D26EB8 /* Bob.app */,
+				9FFE39141EF1DE2500D26EB8 /* WALLE.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9FFE39161EF1DE2500D26EB8 /* Bob */ = {
+		9FFE39161EF1DE2500D26EB8 /* WALLE */ = {
 			isa = PBXGroup;
 			children = (
 				73793A821FEB658200549119 /* Brain */,
@@ -175,19 +172,19 @@
 				9FFE39171EF1DE2500D26EB8 /* AppDelegate.swift */,
 				9FFE39251EF1DE2500D26EB8 /* Info.plist */,
 				9FFE391D1EF1DE2500D26EB8 /* Main.storyboard */,
-				9FFE39221EF1DE2500D26EB8 /* LaunchScreen.storyboard */,
+				73A592B11FF1F1DF00BB451D /* Inceptionv3.mlmodel */,
 				9FFE39201EF1DE2500D26EB8 /* Assets.xcassets */,
 				73203BA71F723E7200DB24DB /* Models.scnassets */,
 			);
-			path = Bob;
+			path = WALLE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9FFE39131EF1DE2500D26EB8 /* Bob */ = {
+		9FFE39131EF1DE2500D26EB8 /* WALLE */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FFE39281EF1DE2500D26EB8 /* Build configuration list for PBXNativeTarget "Bob" */;
+			buildConfigurationList = 9FFE39281EF1DE2500D26EB8 /* Build configuration list for PBXNativeTarget "WALLE" */;
 			buildPhases = (
 				ABDC0DA236A94FAF73384F12 /* [CP] Check Pods Manifest.lock */,
 				9FFE39101EF1DE2500D26EB8 /* Sources */,
@@ -200,9 +197,9 @@
 			);
 			dependencies = (
 			);
-			name = Bob;
+			name = WALLE;
 			productName = "AR Testbed";
-			productReference = 9FFE39141EF1DE2500D26EB8 /* Bob.app */;
+			productReference = 9FFE39141EF1DE2500D26EB8 /* WALLE.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -220,7 +217,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9FFE390F1EF1DE2500D26EB8 /* Build configuration list for PBXProject "Bob" */;
+			buildConfigurationList = 9FFE390F1EF1DE2500D26EB8 /* Build configuration list for PBXProject "WALLE" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -233,7 +230,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9FFE39131EF1DE2500D26EB8 /* Bob */,
+				9FFE39131EF1DE2500D26EB8 /* WALLE */,
 			);
 		};
 /* End PBXProject section */
@@ -243,7 +240,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FFE39241EF1DE2500D26EB8 /* LaunchScreen.storyboard in Resources */,
 				73203BA81F723E7200DB24DB /* Models.scnassets in Resources */,
 				9FFE39211EF1DE2500D26EB8 /* Assets.xcassets in Resources */,
 				9FFE391F1EF1DE2500D26EB8 /* Main.storyboard in Resources */,
@@ -340,14 +336,6 @@
 				9FFE391E1EF1DE2500D26EB8 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9FFE39221EF1DE2500D26EB8 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9FFE39231EF1DE2500D26EB8 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -460,9 +448,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 40BBC649FEB56705C9567E01 /* Pods-Bob.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "WALL-E";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 2UDNR4WTGT;
-				INFOPLIST_FILE = "$(SRCROOT)/Bob/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/WALLE/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.juran.arbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -475,9 +464,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ACC9ECE3656962F9B945718D /* Pods-Bob.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "WALL-E";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 2UDNR4WTGT;
-				INFOPLIST_FILE = "$(SRCROOT)/Bob/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/WALLE/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.juran.arbox;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -489,7 +479,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9FFE390F1EF1DE2500D26EB8 /* Build configuration list for PBXProject "Bob" */ = {
+		9FFE390F1EF1DE2500D26EB8 /* Build configuration list for PBXProject "WALLE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FFE39261EF1DE2500D26EB8 /* Debug */,
@@ -498,7 +488,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FFE39281EF1DE2500D26EB8 /* Build configuration list for PBXNativeTarget "Bob" */ = {
+		9FFE39281EF1DE2500D26EB8 /* Build configuration list for PBXNativeTarget "WALLE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FFE39291EF1DE2500D26EB8 /* Debug */,
