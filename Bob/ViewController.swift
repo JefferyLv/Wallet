@@ -16,26 +16,26 @@ class ViewController: UIViewController {
     var floatingActionButton: LiquidFloatingActionButton!
     
     var showDebugVisuals: Bool = false
-
+    
     var bModeler : Modeler!
     var pModeler : Modeler!
     var modeler  : Modeler!
     
-    var chair : SCNReferenceNode!
-    var cup : SCNReferenceNode!
-    var select : SCNReferenceNode!
+    var chair   : SCNReferenceNode!
+    var cup     : SCNReferenceNode!
+    var select  : SCNReferenceNode!
     
-    var brain: Brain!
+    var nose: Nose!
+    var eye : Eye!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UISetup()
         ARSetup()
-        GesturesSetup()
-        
         MLSetup()
-        
+        GesturesSetup()
+
         UIApplication.shared.isIdleTimerDisabled = true
     }
     
@@ -56,5 +56,5 @@ class ViewController: UIViewController {
         // Pause the view's session
         sceneView.session.pause()
     }
-
+    
 }

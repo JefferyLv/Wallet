@@ -10,7 +10,8 @@ extension ViewController {
     
     func MLSetup() {
 
-        brain = Brain(scene: sceneView)
+        nose = Nose(scene: sceneView)
+        eye  = Eye(scene: sceneView)
     }
     
 }

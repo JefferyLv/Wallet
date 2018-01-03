@@ -83,6 +83,9 @@ extension ViewController: ARSCNViewDelegate {
         DispatchQueue.main.async {
             self.modeler.updateAtTime(pos: self.indicator.center)
         }
+        
+        self.nose.smell()
+        self.eye.look()
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {

@@ -139,10 +139,6 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     }
     
     func brainAction() {
-        if (self.brain.isCoreMLRunning()) {
-            self.brain.endCoreMLRunning()
-        } else {
-            self.brain.startCoreMLRunning()
-        }
+        self.nose.inDetection = !self.nose.inDetection
     }
 }

@@ -9,13 +9,13 @@ import SceneKit
 import ARKit
 import Vision
 
-class Brain {
+class Nose {
     
     var sceneView: ARSCNView!
     var inDetection = false
 
     var visionRequests = [VNRequest]()
-    let dispatchQueueML = DispatchQueue(label: "com.hw.dispatchqueueml") // A Serial Queue
+    let dispatchQueueML = DispatchQueue(label: "com.dispatchqueue.ml") // A Serial Queue
     
     init (scene: ARSCNView) {
         
@@ -29,38 +29,21 @@ class Brain {
 
         // Set up Vision-CoreML Request
         let classificationRequest = VNCoreMLRequest(model: selectedModel, completionHandler: classificationCompleteHandler)
-        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop // Crop from centre of images and scale to appropriate size.
+        // Crop from centre of images and scale to appropriate size.
+        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
         visionRequests = [classificationRequest]  
     }
     
-    func loopCoreMLUpdate() {
-
-        // Continuously run CoreML whenever it's ready. (Preventing 'hiccups' in Frame Rate)
+    func smell() {
         dispatchQueueML.async {
-            // 1. Run Update.
-            self.updateCoreML()
-            
-            // 2. Loop this function.
-            if (self.inDetection) {
-                self.loopCoreMLUpdate()
+            if self.inDetection {
+                self.predict()
             }
         }
     }
     
-    func startCoreMLRunning() {
-        self.inDetection = true
-        self.loopCoreMLUpdate()
-    }
-    
-    func endCoreMLRunning() {
-        self.inDetection = false
-    }
-    
-    func isCoreMLRunning() -> Bool {
-        return self.inDetection
-    }
-    
-    func updateCoreML() {
+    func predict() {
+        
         ///////////////////////////
         // Get Camera Image as RGB
         let pixbuff : CVPixelBuffer? = (sceneView.session.currentFrame?.capturedImage)
