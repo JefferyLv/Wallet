@@ -3,23 +3,33 @@
 //  Bob
 //
 //  Created by lvwei on 21/12/2017.
-//  Copyright © 2017 Alun Bestor. All rights reserved.
+//  Copyright © 2017 Juran. All rights reserved.
 //
 import SceneKit
 import ARKit
 import Vision
 
+enum Category {
+    case Window, None
+}
+
+class nFinding : Finding {
+    var cate = Category.None
+}
+
 class Nose {
     
     var sceneView: ARSCNView!
     var inDetection = false
-
+    var finding: nFinding!
+    
     var visionRequests = [VNRequest]()
     let dispatchQueueML = DispatchQueue(label: "com.dispatchqueue.ml") // A Serial Queue
     
     init (scene: ARSCNView) {
         
         sceneView = scene
+        finding = nFinding()
         
         // Set up Vision Model
         guard let selectedModel = try? VNCoreMLModel(for:  Inceptionv3().model) else {
@@ -86,6 +96,8 @@ class Nose {
             .flatMap({ $0 as? VNClassificationObservation })
             .map({ "\($0.identifier) \(String(format:"- %.2f", $0.confidence))" })
             .joined(separator: "\n")
+        
+        
         
         
         DispatchQueue.main.async {

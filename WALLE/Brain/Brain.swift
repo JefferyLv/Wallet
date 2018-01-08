@@ -3,7 +3,7 @@
 //  Bob
 //
 //  Created by lvwei on 03/01/2018.
-//  Copyright © 2018 Alun Bestor. All rights reserved.
+//  Copyright © 2018 Juran. All rights reserved.
 //
 
 import SceneKit
@@ -19,10 +19,10 @@ class Brain {
     
     init (sceneView: ARSCNView) {
         scene = sceneView
+        
         nose = Nose(scene: scene)
         eye = Eye(scene: scene)
     }
-    
     func openEye() {
         eye.inDetection = true
     }
@@ -35,10 +35,6 @@ class Brain {
     func closeNose() {
         nose.inDetection = false
     }
-    func run(target: Modeler) {
-        nose.smell()
-        eye.look(target: target)
-    }
     func wakeUp() {
         openEye()
         openNose()
@@ -48,6 +44,23 @@ class Brain {
         closeNose()
     }
     func isAwake() -> Bool {
-        return eye.inDetection
+        return eye.inDetection || nose.inDetection
+    }
+    func run(target: Modeler) {
+//        nose.smell()
+        eye.look(target: target)
+        evolve()
+    }
+    private func evolve() {
+    
+        if eye.finding.dir == .Wall {
+            print ("wall")
+        }
+        if eye.finding.dir == .Roof {
+            print ("roof")
+        }
+        if eye.finding.dir == .Floor {
+            print ("floor")
+        }
     }
 }

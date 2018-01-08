@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  AR Testbed
 //
-//  Created by Alun Bestor on 2017-06-14.
-//  Copyright © 2017 Alun Bestor. All rights reserved.
+//  Created by Juran on 2017-06-14.
+//  Copyright © 2017 Juran. All rights reserved.
 //
 
 import UIKit

@@ -16,6 +16,7 @@
 		73203BAA1F724DA200DB24DB /* ViewController+Gestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73203BA91F724DA200DB24DB /* ViewController+Gestures.swift */; };
 		73203BAC1F7259A700DB24DB /* ViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73203BAB1F7259A700DB24DB /* ViewController+Actions.swift */; };
 		73203BAF1F7285EA00DB24DB /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73203BAE1F7285EA00DB24DB /* ModelIO.framework */; };
+		735ECB972003632E0009692C /* Finding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735ECB962003632E0009692C /* Finding.swift */; };
 		73793A841FEB67C200549119 /* Nose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73793A831FEB67C200549119 /* Nose.swift */; };
 		73A592B21FF1F1DF00BB451D /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 73A592B11FF1F1DF00BB451D /* Inceptionv3.mlmodel */; };
 		73A592EA1FF2222E00BB451D /* ViewController+AR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A592E91FF2222E00BB451D /* ViewController+AR.swift */; };
@@ -47,6 +48,7 @@
 		73203BA91F724DA200DB24DB /* ViewController+Gestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Gestures.swift"; sourceTree = "<group>"; };
 		73203BAB1F7259A700DB24DB /* ViewController+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Actions.swift"; sourceTree = "<group>"; };
 		73203BAE1F7285EA00DB24DB /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
+		735ECB962003632E0009692C /* Finding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finding.swift; sourceTree = "<group>"; };
 		73793A831FEB67C200549119 /* Nose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nose.swift; sourceTree = "<group>"; };
 		73A592B11FF1F1DF00BB451D /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		73A592E91FF2222E00BB451D /* ViewController+AR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+AR.swift"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				73A593121FFCA69C00BB451D /* Brain.swift */,
 				73793A831FEB67C200549119 /* Nose.swift */,
 				73A5930F1FFB8C7900BB451D /* Eye.swift */,
+				735ECB962003632E0009692C /* Finding.swift */,
 			);
 			path = Brain;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				73110D1E1F6D2A5600F29531 /* Polygon.swift in Sources */,
 				73203BAC1F7259A700DB24DB /* ViewController+Actions.swift in Sources */,
 				9FFE391C1EF1DE2500D26EB8 /* ViewController.swift in Sources */,
+				735ECB972003632E0009692C /* Finding.swift in Sources */,
 				73A592EC1FF227B100BB451D /* ViewController+ML.swift in Sources */,
 				73A593131FFCA69C00BB451D /* Brain.swift in Sources */,
 				9FFE39181EF1DE2500D26EB8 /* AppDelegate.swift in Sources */,

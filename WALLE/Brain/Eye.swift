@@ -3,35 +3,51 @@
 //  Bob
 //
 //  Created by lvwei on 02/01/2018.
-//  Copyright © 2018 Alun Bestor. All rights reserved.
+//  Copyright © 2018 Juran. All rights reserved.
 //
 
 import SceneKit
 import ARKit
 import Vision
 
+enum Direction {
+    case Floor, Roof, Wall, None
+}
+
+class eFinding : Finding {
+    var dir = Direction.None
+    var obj :SCNNode?
+}
+
 class Eye {
     
     var sceneView: ARSCNView!
     var inDetection = false
+    var finding: eFinding!
+    var pos: CGPoint
     
     let dispatchQueueAR = DispatchQueue(label: "com.dispatchqueue.ar") // A Serial Queue
     
     init (scene: ARSCNView) {
         
         sceneView = scene
+        finding = eFinding()
+        pos = scene.center
     }
     
     func look(target: Modeler) {
         dispatchQueueAR.async {
             if self.inDetection {
-                self.predict(pos: self.sceneView.center, target: target)
+                self.predict(pos: self.pos, target: target)
             }
         }
     }
     
     func predict(pos: CGPoint, target: Modeler) {
         
+        finding.dir = .None
+        finding.obj = nil
+
         for face in target.face() {
             
             let hitResults = sceneView.hitTest(pos, options: [
@@ -43,8 +59,19 @@ class Eye {
             face.geometry?.firstMaterial?.transparency = 0.1
             
             if let result = hitResults.first {
+                finding.obj = result.node
+                
+                if result.node.orientation.x > 0 {
+                    finding.dir = .Floor
+                } else if result.node.orientation.x < 0 {
+                    finding.dir = .Roof
+                } else {
+                    finding.dir = .Wall
+                }
+                
                 result.node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-                result.node.geometry?.firstMaterial?.transparency = 0.6
+                result.node.geometry?.firstMaterial?.transparency = 0.2
+                break
             }
         }
     }
