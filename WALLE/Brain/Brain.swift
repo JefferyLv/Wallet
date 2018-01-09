@@ -10,18 +10,28 @@ import SceneKit
 import ARKit
 import Vision
 
+
+enum Inference {
+    case Curtain ,Light, None
+}
+class bFinding : Finding {
+    var kind = Inference.None
+}
+
 class Brain {
     
     var scene: ARSCNView!
     
     var nose: Nose!
     var eye : Eye!
+    var inf : bFinding!
     
     init (sceneView: ARSCNView) {
         scene = sceneView
         
         nose = Nose(scene: scene)
         eye = Eye(scene: scene)
+        inf = bFinding()
     }
     func openEye() {
         eye.inDetection = true
@@ -47,17 +57,24 @@ class Brain {
         return eye.inDetection || nose.inDetection
     }
     func run(target: Modeler) {
-//        nose.smell()
+        nose.smell()
         eye.look(target: target)
         evolve()
     }
     private func evolve() {
-    
+        inf.kind = .None
+        
         if eye.finding.dir == .Wall {
-            print ("wall")
+            if nose.finding.cate == .Window {
+                print ("window on wall")
+                inf.kind = .Curtain
+            }
         }
         if eye.finding.dir == .Roof {
-            print ("roof")
+            if nose.finding.cate == .Light {
+                print ("light in roof")
+                inf.kind = .Light
+            }
         }
         if eye.finding.dir == .Floor {
             print ("floor")

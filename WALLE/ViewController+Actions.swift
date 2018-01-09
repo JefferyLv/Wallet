@@ -27,6 +27,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         floatingActionButton.dataSource = self
         floatingActionButton.delegate = self
         floatingActionButton.animateStyle = .right
+        floatingActionButton.color = UIColor.init(red: 208/255.0, green: 137/255.0, blue: 97/255.0, alpha: 1)
         self.view.addSubview(floatingActionButton)
     }
     

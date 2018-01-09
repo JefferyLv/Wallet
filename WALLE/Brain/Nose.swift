@@ -10,7 +10,7 @@ import ARKit
 import Vision
 
 enum Category {
-    case Window, None
+    case Window, Light, None
 }
 
 class nFinding : Finding {
@@ -97,25 +97,30 @@ class Nose {
             .map({ "\($0.identifier) \(String(format:"- %.2f", $0.confidence))" })
             .joined(separator: "\n")
         
-        
-        
-        
-        DispatchQueue.main.async {
-            // Print Classifications
-            print(classifications)
-            print("--")
-            
-            // Display Debug Text on screen
-            var debugText:String = ""
-            debugText += classifications
-//            self.debugTextView.text = debugText
-            
-            // Store the latest prediction
-            var objectName:String = "…"
-            objectName = classifications.components(separatedBy: "-")[0]
-            objectName = objectName.components(separatedBy: ",")[0]
-//            self.latestPrediction = objectName
-            
+        finding.cate = .None
+        if classifications.contains("window") {
+            finding.cate = .Window
         }
+        if classifications.contains("light") {
+            finding.cate = .Light
+        }
+          
+//        DispatchQueue.main.async {
+//            // Print Classifications
+//            print(classifications)
+//            print("--")
+//
+//            // Display Debug Text on screen
+//            var debugText:String = ""
+//            debugText += classifications
+////            self.debugTextView.text = debugText
+//
+//            // Store the latest prediction
+//            var objectName:String = "…"
+//            objectName = classifications.components(separatedBy: "-")[0]
+//            objectName = objectName.components(separatedBy: ",")[0]
+////            self.latestPrediction = objectName
+//
+//        }
     }
 }

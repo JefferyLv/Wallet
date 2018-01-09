@@ -17,9 +17,9 @@ extension ViewController : UIGestureRecognizerDelegate {
         tapGesture.delegate = self
         sceneView.addGestureRecognizer(tapGesture)
         
-        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
-        doubleTapGesture.numberOfTapsRequired = 2
-        sceneView.addGestureRecognizer(doubleTapGesture)
+//        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+//        doubleTapGesture.numberOfTapsRequired = 2
+//        sceneView.addGestureRecognizer(doubleTapGesture)
     }
 
     @objc dynamic func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -55,26 +55,7 @@ extension ViewController : UIGestureRecognizerDelegate {
                 select.position = coordinate
                 select.rotation = rotation
                 self.modeler.model().addChildNode(select)
-                
-                // Load the content asynchronously.
-//                DispatchQueue.global(qos: .userInitiated).async {
-//
-//                    guard let url = Bundle.main.url(forResource: "Models.scnassets/paint/blackboard", withExtension: "scn") else {
-//                        fatalError("can't find expected virtual object bundle resources")
-//                    }
-//
-//                    let obj = SCNReferenceNode(url:url)
-//                    obj?.load()
-//
-//
-//
-//                    obj?.position = coordinate
-//                    obj?.rotation = rotation
-//
-//                    DispatchQueue.main.async {
-//                        self.modeler.model().addChildNode(obj!)
-//                    }
-//                }
+
                 break
             }
         }
@@ -85,7 +66,6 @@ extension ViewController : UIGestureRecognizerDelegate {
         if !indicator.isHidden {
             indicator.heartbeat()
         }
-
     }
     
     
