@@ -105,22 +105,11 @@ class Nose {
             finding.cate = .Light
         }
           
-//        DispatchQueue.main.async {
-//            // Print Classifications
-//            print(classifications)
-//            print("--")
-//
-//            // Display Debug Text on screen
-//            var debugText:String = ""
-//            debugText += classifications
-////            self.debugTextView.text = debugText
-//
-//            // Store the latest prediction
-//            var objectName:String = "…"
-//            objectName = classifications.components(separatedBy: "-")[0]
-//            objectName = objectName.components(separatedBy: ",")[0]
-////            self.latestPrediction = objectName
-//
-//        }
+        DispatchQueue.main.async {
+            // Print Classifications
+            print(classifications)
+            print("--")
+
+        }
     }
 }

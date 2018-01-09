@@ -12,28 +12,20 @@ import SceneKit
 extension ViewController {
     
     func MLSetup() {
-        
         brain = Brain(sceneView: sceneView)
     }
     
     func infer() {
-        switch brain.inf.kind {
-        case .Curtain:
-            DispatchQueue.global(qos: .userInitiated).async {
-                
-                guard let url = Bundle.main.url(forResource: "Models.scnassets/blackboard/blackboard", withExtension: "scn") else {
-                    fatalError("can't find expected virtual object bundle resources")
-                }
-                
-                self.chair = SCNReferenceNode(url:url)
-                self.chair.load()
-                
-                self.select = self.chair
+        DispatchQueue.main.async {
+            switch self.brain.inf.kind {
+            case .Curtain:
+                self.message.setTitle("Curtain", for: UIControlState.normal)
+            case .Light:
+                self.message.setTitle("Light", for: UIControlState.normal)
+            case .None:
+                self.message.setTitle("", for: UIControlState.normal)
+                break
             }
-        case .Light:
-            break
-        case .None:
-            break
         }
     }
 }

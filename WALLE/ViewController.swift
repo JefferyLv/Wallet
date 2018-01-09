@@ -11,7 +11,9 @@ class ViewController: UIViewController {
     
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var indicator: UILabel!
-    
+    @IBOutlet var message: UIButton!
+    @IBOutlet var messageView: UIVisualEffectView!
+
     var cells: [LiquidFloatingCell] = []
     var floatingActionButton: LiquidFloatingActionButton!
     

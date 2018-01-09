@@ -64,18 +64,18 @@ class Brain {
     private func evolve() {
         inf.kind = .None
         
-        if eye.finding.dir == .Wall {
+//        if eye.finding.dir == .Wall {
             if nose.finding.cate == .Window {
                 print ("window on wall")
                 inf.kind = .Curtain
             }
-        }
-        if eye.finding.dir == .Roof {
+//        }
+//        if eye.finding.dir == .Roof {
             if nose.finding.cate == .Light {
                 print ("light in roof")
                 inf.kind = .Light
             }
-        }
+//        }
         if eye.finding.dir == .Floor {
             print ("floor")
         }

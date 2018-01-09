@@ -18,16 +18,16 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         
         cells.append(LiquidFloatingCell(icon: UIImage(named: "rectangle")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "polygon")!))
-        cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
-        cells.append(LiquidFloatingCell(icon: UIImage(named: "cup")!))
+//        cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
+//        cells.append(LiquidFloatingCell(icon: UIImage(named: "cup")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "brain")!))
         
         let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
         let floatingActionButton = LiquidFloatingActionButton(frame: floatingFrame)
         floatingActionButton.dataSource = self
         floatingActionButton.delegate = self
-        floatingActionButton.animateStyle = .right
-        floatingActionButton.color = UIColor.init(red: 208/255.0, green: 137/255.0, blue: 97/255.0, alpha: 1)
+        floatingActionButton.animateStyle = .down
+        floatingActionButton.color = UIColor.init(red: 100/255.0, green: 86/255.0, blue: 86/255.0, alpha: 1)
         self.view.addSubview(floatingActionButton)
     }
     
@@ -48,15 +48,35 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         case 1:
             polyAction()
         case 2:
-            chairAction()
-        case 3:
-            cupAction()
-        case 4:
             brainAction()
         default:
             break
         }
         liquidFloatingActionButton.close()
+    }
+    
+    @IBAction func acceptAction() {
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            var url:URL!
+            switch self.brain.inf.kind {
+            case .Curtain:
+                url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn")!
+            case .Light:
+                url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn")!
+            case .None:
+                url = nil
+                break
+            }
+            
+            if (url != nil) {
+                self.chair = SCNReferenceNode(url:url)
+                self.chair.load()
+                
+                self.select = self.chair
+            }
+        }
+
     }
     
     @IBAction func restartAction(_ sender: UIButton) {
@@ -146,4 +166,6 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             self.brain.wakeUp()
         }
     }
+    
+
 }
