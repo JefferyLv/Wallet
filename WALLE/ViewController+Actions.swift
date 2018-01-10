@@ -58,12 +58,16 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         DispatchQueue.global(qos: .userInitiated).async {
             var url:URL!
             switch self.brain.inf.kind {
+            case .None:
+                url = nil
             case .Curtain:
                 url = Bundle.main.url(forResource: "Models.scnassets/curtain/model", withExtension: "scn")!
             case .Light:
                 url = Bundle.main.url(forResource: "Models.scnassets/light/model", withExtension: "scn")!
-            case .None:
-                url = nil
+            case .Tv:
+                url = Bundle.main.url(forResource: "Models.scnassets/tv/model", withExtension: "scn")!
+            case .Chair:
+                url = Bundle.main.url(forResource: "Models.scnassets/chair/model", withExtension: "scn")!
             }
             
             if (url != nil) {

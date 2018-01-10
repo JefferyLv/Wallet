@@ -58,7 +58,7 @@
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NML-eG-ryt">
                                             <rect key="frame" x="0.0" y="0.0" width="489" height="48"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <inset key="contentEdgeInsets" minX="10" minY="5" maxX="5" maxY="0.0"/>
                                             <state key="normal" title="Hello">
                                                 <color key="titleColor" red="0.9482301474" green="0.65393233299999998" blue="0.38823837039999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

@@ -12,7 +12,7 @@ import Vision
 
 
 enum Inference {
-    case Curtain ,Light, None
+    case Curtain, Light, Tv, Chair, None
 }
 class bFinding : Finding {
     var kind = Inference.None
@@ -64,21 +64,21 @@ class Brain {
     }
     private func evolve() {
         inf.kind = .None
+        inf.node = eye.finding.obj
         
-//        if eye.finding.dir == .Wall {
+        if eye.finding.dir == .Wall {
+            inf.kind = .Tv
             if nose.finding.cate == .Window {
                 inf.kind = .Curtain
             }
-//        }
-//        if eye.finding.dir == .Roof {
+        }
+        if eye.finding.dir == .Roof {
+            inf.kind = .Light
             if nose.finding.cate == .Light {
-                inf.kind = .Light
             }
-        
-        inf.node = eye.finding.obj
-//        }
+        }
         if eye.finding.dir == .Floor {
-            print ("floor")
+            inf.kind = .Chair
         }
     }
 }
