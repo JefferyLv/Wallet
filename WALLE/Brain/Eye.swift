@@ -55,9 +55,6 @@ class Eye {
                 .firstFoundOnly: true,
                 ])
             
-            face.geometry?.firstMaterial?.diffuse.contents = UIColor.white
-            face.geometry?.firstMaterial?.transparency = 0.1
-            
             if let result = hitResults.first {
                 finding.obj = result.node
                 
@@ -68,9 +65,6 @@ class Eye {
                 } else {
                     finding.dir = .Wall
                 }
-                
-                result.node.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-                result.node.geometry?.firstMaterial?.transparency = 0.2
                 break
             }
         }

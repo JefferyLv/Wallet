@@ -70,7 +70,8 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
                 
                 self.select = SCNReferenceNode(url:url)
                 self.select.load()
-
+                
+                self.brain.inf.node?.addChildNode(self.select)
             }
         }
 
