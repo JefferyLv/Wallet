@@ -19,9 +19,9 @@ extension ViewController {
         DispatchQueue.main.async {
             switch self.brain.inf.kind {
             case .Curtain:
-                self.message.setTitle("Curtain", for: UIControlState.normal)
+                self.message.setTitle("Find a window, Do you need a Curtain?", for: UIControlState.normal)
             case .Light:
-                self.message.setTitle("Light", for: UIControlState.normal)
+                self.message.setTitle("Find a roof, Do you need a Light?", for: UIControlState.normal)
             case .None:
                 self.message.setTitle("", for: UIControlState.normal)
                 break

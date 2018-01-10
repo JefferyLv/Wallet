@@ -18,8 +18,6 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         
         cells.append(LiquidFloatingCell(icon: UIImage(named: "rectangle")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "polygon")!))
-//        cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
-//        cells.append(LiquidFloatingCell(icon: UIImage(named: "cup")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "brain")!))
         
         let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
@@ -61,19 +59,18 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             var url:URL!
             switch self.brain.inf.kind {
             case .Curtain:
-                url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn")!
+                url = Bundle.main.url(forResource: "Models.scnassets/curtain/model", withExtension: "scn")!
             case .Light:
-                url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn")!
+                url = Bundle.main.url(forResource: "Models.scnassets/light/model", withExtension: "scn")!
             case .None:
                 url = nil
-                break
             }
             
             if (url != nil) {
-                self.chair = SCNReferenceNode(url:url)
-                self.chair.load()
                 
-                self.select = self.chair
+                self.select = SCNReferenceNode(url:url)
+                self.select.load()
+
             }
         }
 
@@ -119,51 +116,14 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
     }
     
-    func chairAction() {
-        
-        if self.chair == nil {
-            // Load the content asynchronously.
-            DispatchQueue.global(qos: .userInitiated).async {
-                
-                guard let url = Bundle.main.url(forResource: "Models.scnassets/chair/chair", withExtension: "scn") else {
-                    fatalError("can't find expected virtual object bundle resources")
-                }
-                
-                self.chair = SCNReferenceNode(url:url)
-                self.chair.load()
-                
-                self.select = self.chair
-            }
-        } else {
-            self.select = self.chair
-        }
-    }
-    
-    func cupAction() {
-        
-        if self.cup == nil {
-            // Load the content asynchronously.
-            DispatchQueue.global(qos: .userInitiated).async {
-                
-                guard let url = Bundle.main.url(forResource: "Models.scnassets/paint/blackboard", withExtension: "scn") else {
-                    fatalError("can't find expected virtual object bundle resources")
-                }
-                
-                self.cup = SCNReferenceNode(url:url)
-                self.cup.load()
-                self.select = self.cup
-            }
-        } else {
-            
-            self.select = self.cup
-        }
-    }
-    
     func brainAction() {
+        
         if self.brain.isAwake() {
             self.brain.sleep()
+            self.modeler.setCullMode(mode: .back)
         } else {
             self.brain.wakeUp()
+            self.modeler.setCullMode(mode: .front)
         }
     }
     

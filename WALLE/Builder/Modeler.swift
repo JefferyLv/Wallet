@@ -60,6 +60,12 @@ class Modeler : Equatable {
         return []
     }
     
+    func setCullMode(mode: SCNCullMode) {
+        for f in face() {
+            f.geometry?.firstMaterial?.cullMode = mode
+        }
+    }
+    
     func active() {
     }
     func deactive() {

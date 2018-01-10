@@ -16,6 +16,7 @@ enum Inference {
 }
 class bFinding : Finding {
     var kind = Inference.None
+    var node : SCNNode?
 }
 
 class Brain {
@@ -66,15 +67,15 @@ class Brain {
         
 //        if eye.finding.dir == .Wall {
             if nose.finding.cate == .Window {
-                print ("window on wall")
                 inf.kind = .Curtain
             }
 //        }
 //        if eye.finding.dir == .Roof {
             if nose.finding.cate == .Light {
-                print ("light in roof")
                 inf.kind = .Light
             }
+        
+        inf.node = eye.finding.obj
 //        }
         if eye.finding.dir == .Floor {
             print ("floor")

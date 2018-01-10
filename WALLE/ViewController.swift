@@ -22,9 +22,7 @@ class ViewController: UIViewController {
     var bModeler : Modeler!
     var pModeler : Modeler!
     var modeler  : Modeler!
-    
-    var chair   : SCNReferenceNode!
-    var cup     : SCNReferenceNode!
+
     var select  : SCNReferenceNode!
     
     var brain: Brain!
