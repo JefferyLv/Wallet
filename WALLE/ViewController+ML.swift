@@ -30,6 +30,8 @@ extension ViewController {
                 self.message.setTitle("", for: UIControlState.normal)
                 break
             }
+            
+            self.messageView.isHidden = self.brain.inf.kind == .None
         }
     }
 }
