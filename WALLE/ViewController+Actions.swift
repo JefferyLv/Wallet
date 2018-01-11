@@ -40,24 +40,30 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     func liquidFloatingActionButton(_ liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
         liquidFloatingActionButton.heartbeat()
         
-        switch index {
-        case 0:
-            boxAction()
-        case 1:
-            polyAction()
-        case 2:
-            brainAction()
-        default:
-            break
+        if (self.brain.eye.finding.dir == .None) {
+            switch index {
+            case 0:
+                boxAction()
+            case 1:
+                polyAction()
+            case 2:
+                brainAction()
+            default:
+                break
+            }
+        } else {
+            self.loadContent(self.brain.eye.finding.dir, index)
         }
         liquidFloatingActionButton.close()
     }
     
     @IBAction func acceptAction() {
 
-        self.floatingActionButton.close()
+//        if (self.floatingActionButton.isOpening) {
+//            self.floatingActionButton.close()
+//        }
         
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInitiated).async {
             var url:URL!
             switch self.brain.inf.kind {
             case .None:
@@ -78,8 +84,10 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
                 self.select.load()
                 self.brain.inf.node?.addChildNode(self.select)
                 
-                self.cellSetup(self.brain.eye.finding.dir)
-                self.floatingActionButton.open()
+                DispatchQueue.main.async {
+                    self.cellSetup(self.brain.eye.finding.dir)
+                    self.floatingActionButton.open()
+                }
             }
         }
     }
@@ -152,6 +160,27 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         case .None:
             break
         }
+    }
+    
+    func loadContent(_ dir:Direction, _ index: Int) {
+        var url: URL! = nil
         
+        if (dir == .Floor) {
+            if (index == 0) {
+                url = Bundle.main.url(forResource: "Models.scnassets/table/model", withExtension: "scn")!
+            } else if (index == 1) {
+                url = Bundle.main.url(forResource: "Models.scnassets/chair/model", withExtension: "scn")!
+            } else if (index == 2) {
+                url = Bundle.main.url(forResource: "Models.scnassets/sofa/model", withExtension: "scn")!
+            }
+        }
+        
+        if (url != nil) {
+ 
+            let newSelect = SCNReferenceNode(url:url)
+            newSelect!.load()
+            self.brain.inf.node?.replaceChildNode(self.select, with: newSelect!)
+            self.select = newSelect
+        }
     }
 }
