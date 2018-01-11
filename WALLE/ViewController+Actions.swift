@@ -21,7 +21,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         cells.append(LiquidFloatingCell(icon: UIImage(named: "brain")!))
         
         let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
-        let floatingActionButton = LiquidFloatingActionButton(frame: floatingFrame)
+        floatingActionButton = LiquidFloatingActionButton(frame: floatingFrame)
         floatingActionButton.dataSource = self
         floatingActionButton.delegate = self
         floatingActionButton.animateStyle = .down
@@ -55,7 +55,9 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     
     @IBAction func acceptAction() {
 
-        DispatchQueue.global(qos: .userInitiated).async {
+        self.floatingActionButton.close()
+        
+        DispatchQueue.main.async {
             var url:URL!
             switch self.brain.inf.kind {
             case .None:
@@ -69,16 +71,17 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             case .Chair:
                 url = Bundle.main.url(forResource: "Models.scnassets/chair/model", withExtension: "scn")!
             }
-            
+
             if (url != nil) {
                 
                 self.select = SCNReferenceNode(url:url)
                 self.select.load()
-                
                 self.brain.inf.node?.addChildNode(self.select)
+                
+                self.cellSetup(self.brain.eye.finding.dir)
+                self.floatingActionButton.open()
             }
         }
-
     }
     
     @IBAction func restartAction(_ sender: UIButton) {
@@ -133,4 +136,22 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     }
     
 
+    func cellSetup(_ dir:Direction) {
+        cells.removeAll()
+        
+        switch dir {
+        case .Floor:
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "table")!))
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "sofa")!))
+        case .Roof:
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "light")!))
+        case .Wall:
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "tv")!))
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "paint")!))
+        case .None:
+            break
+        }
+        
+    }
 }
