@@ -84,9 +84,10 @@ extension ViewController: ARSCNViewDelegate {
             self.modeler.updateAtTime(pos: self.indicator.center)
         }
         
-        self.brain.run(target: self.modeler)
-        
-        infer()
+        if (self.brain.isAwake()) {
+            self.brain.run(target: self.modeler)
+        }
+        MLInfer()
     }
 
 }

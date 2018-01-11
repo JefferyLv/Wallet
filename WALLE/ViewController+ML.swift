@@ -15,7 +15,7 @@ extension ViewController {
         brain = Brain(sceneView: sceneView)
     }
     
-    func infer() {
+    func MLInfer() {
         DispatchQueue.main.async {
             switch self.brain.inf.kind {
             case .Curtain:

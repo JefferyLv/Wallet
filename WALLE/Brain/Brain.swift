@@ -53,6 +53,9 @@ class Brain {
     func sleep() {
         closeEye()
         closeNose()
+        
+        inf.kind = .None
+        inf.node = nil
     }
     func isAwake() -> Bool {
         return eye.inDetection || nose.inDetection
