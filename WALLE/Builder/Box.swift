@@ -168,7 +168,7 @@ class Box: SCNNode {
         let plane = SCNPlane()
         let node = makeNode(with: plane)
         node.name = side.rawValue
-        node.geometry?.firstMaterial?.transparency = 0.1
+        node.geometry?.firstMaterial?.transparency = 0
         node.geometry?.firstMaterial?.writesToDepthBuffer = false
         node.geometry?.firstMaterial?.isDoubleSided = false
         
@@ -208,7 +208,7 @@ class Box: SCNNode {
     
     func clearHighlights() {
         for (side, _) in faces {
-            setOpacity(0.1, for: side, color: UIColor.white)
+            setOpacity(0, for: side, color: UIColor.white)
         }
     }
     
