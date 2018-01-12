@@ -20,15 +20,17 @@ class nFinding : Finding {
 class Nose {
     
     var sceneView: ARSCNView!
+    var consoleView: UILabel!
     var inDetection = false
     var finding: nFinding!
     
     var visionRequests = [VNRequest]()
     let dispatchQueueML = DispatchQueue(label: "com.dispatchqueue.ml") // A Serial Queue
     
-    init (scene: ARSCNView) {
+    init (scene: ARSCNView, console: UILabel) {
         
         sceneView = scene
+        consoleView = console
         finding = nFinding()
         
         // Set up Vision Model
@@ -92,7 +94,7 @@ class Nose {
         }
         
         // Get Classifications
-        let classifications = observations[0...1] // top 2 results
+        let classifications = observations[0...4] // top 2 results
             .flatMap({ $0 as? VNClassificationObservation })
             .map({ "\($0.identifier) \(String(format:"- %.2f", $0.confidence))" })
             .joined(separator: "\n")
@@ -109,7 +111,8 @@ class Nose {
             // Print Classifications
             print(classifications)
             print("--")
-
+            
+            self.consoleView.text = classifications
         }
     }
 }

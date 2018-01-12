@@ -27,10 +27,10 @@ class Brain {
     var eye : Eye!
     var inf : bFinding!
     
-    init (sceneView: ARSCNView) {
+    init (sceneView: ARSCNView, consoleLabel: UILabel) {
         scene = sceneView
         
-        nose = Nose(scene: scene)
+        nose = Nose(scene: scene, console: consoleLabel)
         eye = Eye(scene: scene)
         inf = bFinding()
     }

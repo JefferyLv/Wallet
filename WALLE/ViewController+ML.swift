@@ -12,7 +12,7 @@ import SceneKit
 extension ViewController {
     
     func MLSetup() {
-        brain = Brain(sceneView: sceneView)
+        brain = Brain(sceneView: sceneView, consoleLabel: console)
     }
     
     func MLInfer() {

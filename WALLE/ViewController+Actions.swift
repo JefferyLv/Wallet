@@ -114,6 +114,8 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }else{
             sceneView.debugOptions = []
         }
+        
+        self.console.isHidden = !showDebugVisuals
     }
     
     func polyAction() {
