@@ -40,7 +40,11 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     func liquidFloatingActionButton(_ liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
         liquidFloatingActionButton.heartbeat()
         
-        if (self.brain.eye.finding.dir == .None) {
+        if (self.brain.isAwake()) {
+            
+            self.loadContent(self.brain.eye.finding.dir, index)
+            
+        } else {
             switch index {
             case 0:
                 boxAction()
@@ -51,17 +55,15 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             default:
                 break
             }
-        } else {
-            self.loadContent(self.brain.eye.finding.dir, index)
         }
         liquidFloatingActionButton.close()
     }
     
     @IBAction func acceptAction() {
 
-//        if (self.floatingActionButton.isOpening) {
-//            self.floatingActionButton.close()
-//        }
+        if (self.floatingActionButton.isOpening) {
+            self.floatingActionButton.close()
+        }
         
         DispatchQueue.global(qos: .userInitiated).async {
             var url:URL!
@@ -139,9 +141,11 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         if self.brain.isAwake() {
             self.brain.sleep()
             self.modeler.setCullMode(mode: .back)
+            self.indicator.isHidden = false
         } else {
             self.brain.wakeUp()
             self.modeler.setCullMode(mode: .front)
+            self.indicator.isHidden = true
         }
     }
     
@@ -177,11 +181,21 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             }
         }
         
+        if (dir == .Wall) {
+            if (index == 0) {
+                url = Bundle.main.url(forResource: "Models.scnassets/tv/model", withExtension: "scn")!
+            } else if (index == 1) {
+                url = Bundle.main.url(forResource: "Models.scnassets/paint/model", withExtension: "scn")!
+            }
+        }
+        
         if (url != nil) {
  
             let newSelect = SCNReferenceNode(url:url)
             newSelect!.load()
+            self.brain.inf.node?.addChildNode(newSelect!)
             self.brain.inf.node?.replaceChildNode(self.select, with: newSelect!)
+            self.select.removeFromParentNode()
             self.select = newSelect
         }
     }

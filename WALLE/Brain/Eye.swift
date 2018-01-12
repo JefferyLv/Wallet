@@ -56,8 +56,13 @@ class Eye {
                 ])
             
             if let result = hitResults.first {
-                finding.obj = result.node
                 
+                if (result.node.parent != target.model()) {
+                    return
+                }
+                
+                finding.obj = result.node
+
                 if result.node.orientation.x > 0 {
                     finding.dir = .Floor
                 } else if result.node.orientation.x < 0 {
