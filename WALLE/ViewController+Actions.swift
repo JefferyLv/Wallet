@@ -16,8 +16,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
     
     func UISetup() {
         
-        cells.append(LiquidFloatingCell(icon: UIImage(named: "rectangle")!))
-        cells.append(LiquidFloatingCell(icon: UIImage(named: "polygon")!))
+        cells.append(LiquidFloatingCell(icon: UIImage(named: "ruler")!))
         cells.append(LiquidFloatingCell(icon: UIImage(named: "brain")!))
         
         let floatingFrame = CGRect(x: 16, y: 16, width: 56, height: 56)
@@ -49,14 +48,13 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             case 0:
                 boxAction()
             case 1:
-                polyAction()
-            case 2:
                 brainAction()
             default:
                 break
             }
         }
         liquidFloatingActionButton.close()
+//        liquidFloatingActionButton.isClosed = true
     }
     
     @IBAction func acceptAction() {
