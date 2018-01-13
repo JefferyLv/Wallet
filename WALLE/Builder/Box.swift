@@ -222,6 +222,10 @@ class Box: SCNNode {
             .back: faceBack,
         ]
     }
+
+    var lines: [SCNNode] {
+        return [lineAB,lineBC,lineCD,lineDA,lineEF,lineFG,lineGH,lineHE,lineAE,lineBF,lineCG,lineDH]
+    }
     
     func move(side: Side, to extent: Float) {
         var (min, max) = boundingBox

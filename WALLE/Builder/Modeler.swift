@@ -60,9 +60,19 @@ class Modeler : Equatable {
         return []
     }
     
+    func line() -> [SCNNode] {
+        return []
+    }
+    
     func setCullMode(mode: SCNCullMode) {
         for f in face() {
             f.geometry?.firstMaterial?.cullMode = mode
+        }
+    }
+    
+    func showLines(_ yes: Int) {
+        for l in line() {
+            l.geometry?.firstMaterial?.transparency = CGFloat(yes)
         }
     }
     

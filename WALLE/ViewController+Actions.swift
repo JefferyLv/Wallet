@@ -80,6 +80,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
                 url = Bundle.main.url(forResource: "Models.scnassets/chair/model", withExtension: "scn")!
             }
 
+
             if (url != nil) {
                 
                 self.select = SCNReferenceNode(url:url)
@@ -118,6 +119,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         }
         
         self.console.isHidden = !showDebugVisuals
+        self.modeler.showLines(showDebugVisuals ? 1: 0)
     }
     
     func polyAction() {
@@ -141,10 +143,12 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
         if self.brain.isAwake() {
             self.brain.sleep()
             self.modeler.setCullMode(mode: .back)
+            self.modeler.showLines(1)
             self.indicator.isHidden = false
         } else {
             self.brain.wakeUp()
             self.modeler.setCullMode(mode: .front)
+            self.modeler.showLines(0)
             self.indicator.isHidden = true
         }
     }
@@ -158,6 +162,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             cells.append(LiquidFloatingCell(icon: UIImage(named: "table")!))
             cells.append(LiquidFloatingCell(icon: UIImage(named: "chair")!))
             cells.append(LiquidFloatingCell(icon: UIImage(named: "sofa")!))
+            cells.append(LiquidFloatingCell(icon: UIImage(named: "paint")!))
         case .Roof:
             cells.append(LiquidFloatingCell(icon: UIImage(named: "light")!))
         case .Wall:
@@ -197,6 +202,14 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             self.brain.inf.node?.replaceChildNode(self.select, with: newSelect!)
             self.select.removeFromParentNode()
             self.select = newSelect
+        }
+        
+        if (index == 3 && dir == .Floor) {
+            self.brain.inf.node?.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "wallpaper.jpg")
+            self.brain.inf.node?.geometry?.firstMaterial?.diffuse.wrapS = .repeat
+            self.brain.inf.node?.geometry?.firstMaterial?.diffuse.wrapT = .repeat
+            self.brain.inf.node?.geometry?.firstMaterial?.diffuse.contentsTransform = SCNMatrix4MakeScale(3.6, 3.6, 0)
+            self.brain.inf.node?.geometry?.firstMaterial?.transparency = 1
         }
     }
 }

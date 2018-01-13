@@ -333,6 +333,14 @@ class BoxModeler : Modeler {
         return faces
     }
     
+    override func line()-> [SCNNode] {
+        var lines = [SCNNode]()
+        for (l) in box.lines {
+            lines.append(l)
+        }
+        return lines
+    }
+    
     override func active() {
         sceneView.addGestureRecognizer(panGesture)
         sceneView.addGestureRecognizer(tapGesture)
