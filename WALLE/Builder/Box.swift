@@ -199,11 +199,11 @@ class Box: SCNNode {
         }
         face.geometry?.firstMaterial?.diffuse.contents = color
         face.geometry?.firstMaterial?.transparency = opacity
-        face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 0.8)
+        face.geometry?.firstMaterial?.writesToDepthBuffer = (opacity >= 0.3)
     }
     
     func highlight(side: Side) {
-        setOpacity(0.8, for: side, color: #colorLiteral(red: 0.8736846447, green: 0.9426622987, blue: 0.9978836179, alpha: 1))
+        setOpacity(0.3, for: side, color: #colorLiteral(red: 0.9994860291, green: 0.6375556588, blue: 0.330604136, alpha: 1))
     }
     
     func clearHighlights() {
