@@ -75,7 +75,7 @@ extension ViewController: LiquidFloatingActionButtonDataSource, LiquidFloatingAc
             case .Tv:
                 url = Bundle.main.url(forResource: "Models.scnassets/tv/model", withExtension: "scn")!
             case .Chair:
-                url = Bundle.main.url(forResource: "Models.scnassets/chair/model", withExtension: "scn")!
+                url = Bundle.main.url(forResource: "Models.scnassets/sofa/model", withExtension: "scn")!
             }
 
 
